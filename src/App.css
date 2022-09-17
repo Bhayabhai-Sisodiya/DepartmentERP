@@ -1,0 +1,202 @@
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  box-sizing: border-box;
+}
+
+body {
+  background-image:linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.5)),url("../src/images/bvm.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  color: white;
+}
+
+.form-box{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid white;
+  padding: 10px;
+  border-radius: 4px;
+  width: 80vw;
+  height: 700px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  transition: .5s;
+}
+.registration-form{
+  height: 60%;
+}
+.form-heading {
+  font-weight: bold;
+  padding: 5px;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  transition: .5s;
+}
+.left-part,.right-part{
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  transition: .5s;
+  padding: 10px;
+}
+.right-part{
+  flex-direction: column;
+}
+.left-part img{
+  transition: .5s all ease-in-out;
+}
+.left-part img:hover{
+  transform: scale(1.2);
+}
+.input-detail,.submit-btn{
+  width: 400px;
+  border-radius: 50px;
+  padding: 10px;
+  margin: 20px auto;
+  box-shadow: 0 0px 0 1px grey;
+  transition: .2s;
+}
+
+.input-detail svg{
+  margin-left: 5px;
+}
+.input {
+  width: 90%;
+  color: white;
+  border: none;
+  background-color: transparent;
+  font-size: 18px;
+  padding: 1px 5px;
+  margin-left: 5px;
+}
+.submit-btn{
+  margin-top: 40px;
+  padding: 5px;
+  text-align: center;
+  background-image: linear-gradient(#4CB8C5, #3CD3BD);
+  cursor: pointer;
+  box-shadow: none;
+}
+.submit-btn:hover > .btn{
+  color: white;
+}
+.submit-btn .btn {
+  background-color: transparent;
+  text-transform: uppercase;
+  font-size: 1rem;
+  padding: 8px;
+  border: none;
+}
+.registration-form p{
+  margin-top: 100px;
+  text-align: center;
+}
+.registration-form p a{
+  color:wheat ;
+  /* text-decoration: none; */
+  transition: .2s;
+}
+.registration-form p a:hover{
+  color: white;
+  text-decoration: underline;
+  transform: scale(1.2);
+}
+
+.App {
+  text-align: center;
+  background-color: green;
+}
+
+.messages {
+  display: flex;
+  justify-content: center;
+}
+
+.error {
+  display: block;
+  background-color: red;
+  color: white;
+  width: fit-content;
+  height: 50px;
+  padding: 5px;
+}
+
+.success {
+  display: block;
+  background-color: lightblue;
+  color: black;
+  width: fit-content;
+  height: 50px;
+  padding: 5px;
+}
+
+@media screen and (max-width:1000px) {
+  .form-box{
+    width: 90vw;
+    height: 600px;
+    margin-top:4px ;
+  }
+  .form-heading{
+    font-size: 1.7rem;
+  }
+  .input-detail{
+    width: 320px;
+    padding: 8px;
+    margin: 15px auto;
+  }
+  .submit-btn{
+    width: 320px;
+    padding: 3px;
+    margin-top: 50px;
+  }
+  .left-part img{
+    width: 250px;
+    height: auto;
+  }
+}
+@media screen and (max-width:778px) {
+  .form-box{
+    flex-direction: column;
+    height: auto;
+  }
+  .left-part,.right-part{
+    width: 100%;
+  }
+  .form-heading{
+    margin-top: 60px;
+    font-size: 1.5rem;
+  }
+  .input-detail{
+    width: 280px;
+    padding: 5px;
+    margin: 15px auto;
+  }
+  .registration-form p {
+    margin-top: 50px;
+  }
+  .left-part img{
+    width: 150px;
+    height: auto;
+  }
+  .submit-btn{
+    width: 280px;
+  }
+}
+/* @media screen and (max-width:426px) {
+  .input-detail{
+    width: 300px;
+    padding: 5px;
+  }
+} */
