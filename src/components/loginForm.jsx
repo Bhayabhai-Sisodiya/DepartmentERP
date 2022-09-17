@@ -38,11 +38,17 @@ export default function Form() {
   };
  
   // Handling the form submission
-  const handleSubmit = (e) => {
+  const handleSubmit =async (e) => {
     e.preventDefault();
     if ( email === '' || password === '') {
       setError(true);
     } else {
+      const requestOptions={
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({username:email,password:password})
+      }
+      const res=await fetch('http://localhost:8080/login',requestOptions)
       setSubmitted(true);
       setError(false);
     }
@@ -89,7 +95,7 @@ export default function Form() {
         <div className='right-part'>
           <h1 className='form-heading'>User Login</h1>
           <div className='registration-form'>
-            <form onSubmit={handleSubmit} method="POST">
+            <form  method="POST">
               <div className='input-detail'>
                 <BsEnvelopeFill/>
                 <input onChange={handleEmail} className="input" value={email} type="email" placeholder='Email'/>
@@ -106,7 +112,7 @@ export default function Form() {
               </div> */}
 
               <div className='submit-btn'>
-              <button className="btn" type="submit">Submit</button>
+              <button onClick={()=>handleSubmit()} className="btn" type="submit">Submit</button>
               </div>
             </form>
             <p>New User? <Link to='/signup'>Register here.</Link></p>
