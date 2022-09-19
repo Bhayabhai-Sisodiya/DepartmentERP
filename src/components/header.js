@@ -9,4 +9,3 @@ const Header = () => {
 }
  
 export default Header;
-<h1>computer department ERP system</h1>

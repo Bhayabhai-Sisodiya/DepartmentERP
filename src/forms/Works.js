@@ -3,50 +3,47 @@ import './form.css';
 import { AiOutlineClose } from "react-icons/ai";
 import { AiOutlinePlus } from "react-icons/ai";
 
-const Profile = () => {
-
-    const [Prof, setProf] = useState({
-      name:"", phno:"",designation:"",dateOfJoin:"",qualification:""
+const Works = () => {
+    const [Work, setWork] = useState({
+        detail:"", client:"",cost:"",faculty_involved:""
     });
-  
+
     //onclick add new button - show form
     const [Show,setShow] = useState(false) 
-
-    return (
-      <>
+    
+    return ( 
+        <>
             {/* add new button */}
             <div className='add-btn'>
-                <button className='btn' onClick={() =>setShow(true)}><span><AiOutlinePlus /></span>add profile details</button>
+                <button className='btn' onClick={() =>setShow(true)}><span><AiOutlinePlus /></span>add new</button>
             </div>
 
-            {/* add Profile details */}
+            {/* add paper details */}
             {Show?<div className='forms'>
                 <div className='close-btn' onClick={() =>setShow(false)}>
                 <AiOutlineClose/>
                 </div>
+                
                 <div className='input-field'>
-                    <input type='text' value={Prof.name} placeholder='your name'/>
+                    <input type='text' value={Work.detail} placeholder='detail'/>
                 </div>
                 <div className='input-field'>
-                    <input type='text' value={Prof.phno} placeholder='phone number'/>
+                    <input type='text' value={Work.client} placeholder='client'/>
                 </div>
                 <div className='input-field'>
-                    <input type='text' value={Prof.designation} placeholder='designation'/>
+                    <input type='text' value={Work.cost} placeholder='cost'/>
                 </div>
                 <div className='input-field'>
-                    <input type='text' value={Prof.dateOfJoin} placeholder='date of join'/>
+                    <input type='text' value={Work.faculty_involved} placeholder='faculty involved'/>
                 </div>
-                <div className='input-field'>
-                    <input type='text' value={Prof.qualification} placeholder='qualification'/>
-                </div>
+                
                 <div className='submit'>
                     <button className="btn" type="submit">Submit</button>
                 </div>
                 
             </div>:null}
-      </>
-    
-  );
+        </>
+     );
 }
-
-export default Profile
+ 
+export default Works;

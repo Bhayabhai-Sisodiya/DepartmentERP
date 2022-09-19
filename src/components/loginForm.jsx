@@ -10,12 +10,9 @@ import {BsLockFill} from "react-icons/bs";
 
 export default function Form() {
  
-  // States for registration
-  
+  // States for registration 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
- 
-  
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
  
@@ -105,11 +102,6 @@ export default function Form() {
                 <BsLockFill/>
                 <input onChange={handlePassword} className="input" value={password} type="password" placeholder='Password'/>
               </div>
-
-              {/* <div className='input-detail'>
-                <BsLockFill/>
-                <input onChange={handleConPass} className="input" value={conpass} type="password" placeholder='Confirm Password'/>
-              </div> */}
 
               <div className='submit-btn'>
               <button onClick={()=>handleSubmit()} className="btn" type="submit">Submit</button>

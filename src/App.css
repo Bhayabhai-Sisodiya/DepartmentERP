@@ -16,6 +16,9 @@ body {
   width: 100%;
   color: white;
 }
+.bodyblur{
+  filter: blur(5px);
+}
 
 .form-box{
   display: flex;

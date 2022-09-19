@@ -1,21 +1,53 @@
-import React from 'react';
-import { Route,Routes , Navigate} from 'react-router-dom';
+import React, { useState } from 'react';
+// import { Route,Routes , Navigate} from 'react-router-dom';
 import './dashboard.css';
-// import ReactDOM from 'react-dom/client';
+
+
+// const Sidebar = (props) => {
+    
+//     //change list item bg color onclick
+//     const [ListBgColor,setListBgColor] = useState(false);
+//     const changeColor = () => {
+//         setListBgColor(ListBgColor => !ListBgColor);
+        
+//     }
+//     let toggleListCheck = ListBgColor ? ' active': '';
+
+
+//     // change category onclick the list item
+//     const onChangeCategory=async (category)=>{
+//         props.onChangeCategory(category);
+//     };
+
+//     return ( 
+//         <>
+//         <div className='sidebar'>
+//         <ul>
+//         {categories.map((category)=>{
+//             return (
+//                 <li onClick={()=>{onChangeCategory(category);changeColor()}} className={`list${toggleListCheck}`}>{category}</li>
+//             )
+//         })}
+//         </ul>
+//         </div>
+//         </>
+//      );
+// }
 
 const Sidebar = (props) => {
 
+    // change category onclick the list item
     const onChangeCategory=async (category)=>{
-        console.log(category)
         props.onChangeCategory(category);
-    }
+    };
+
     return ( 
         <>
         <div className='sidebar'>
         <ul>
         {categories.map((category)=>{
             return (
-                <li onClick={()=>onChangeCategory(category)}>{category}</li>
+                <li onClick={()=>onChangeCategory(category)} className='list'>{category}</li>
             )
         })}
         </ul>
@@ -23,7 +55,8 @@ const Sidebar = (props) => {
         </>
      );
 }
+
  
 export default Sidebar
 
-const categories = ['profile','events','papers','grants','workshops','book publish','patent','phd\'s','research and development','student tours','work','expert talk']
+const categories = ['profile','papers','events','grants','workshops','book publish','patents','phds','researches','tours','works','expert talk']

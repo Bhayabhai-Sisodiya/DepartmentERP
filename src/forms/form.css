@@ -1,0 +1,99 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+}
+.add-btn{
+    margin: .5rem;
+    transition: .5s;
+}
+.add-btn .btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 150px;
+}
+.add-btn .btn span{
+    margin: 0rem .5rem 0 .5rem;
+    padding-top: .2rem;
+}
+.close-btn{
+    padding: .2rem;
+    font-size: 1.2rem;
+    float: right;
+    color: black;
+    cursor:pointer;
+    margin: 0rem 0rem .5rem .2rem;
+}
+.close-btn:hover{
+    color: grey;
+}
+.forms{
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-60%,-70%);
+    box-shadow: 0 2px 5px rgb(0 0 0 / 16%), 0 2px 10px rgb(0 0 0 / 12%);
+    border-radius: .2rem;
+    font-size: 1.1rem;
+    width: 90%;
+    height: auto;
+    padding: .5rem;
+    background-color: white;
+    transition: .8s;
+}
+.input-title{
+    width: auto;
+    font-size: 1.2rem;
+    color: black;
+    text-transform: capitalize;
+}
+.input-field{
+    display: flex;
+    margin: .6rem;
+    padding: .5rem;
+}
+
+input{
+    width: 100%;
+    padding:.3rem;
+    font-size: 1.2rem;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid black;
+    text-transform: capitalize;
+}
+input [type='file'] {
+    border-bottom: none;
+    width: 80%;
+}
+.select-options{
+    width: auto;
+    height: 1.5rem;
+    padding: 0 .3rem;
+    margin-left: 1rem;
+    background-color: transparent;
+    text-align: center;
+    font-size: 1.1rem;
+    text-transform: capitalize;
+}
+
+.submit{
+    margin: .6rem;
+}
+.btn{
+    background-color: #79e1ed;
+    border: none;
+    box-shadow: 0 2px 5px rgb(0 0 0 / 16%), 0 2px 10px rgb(0 0 0 / 12%);;
+    padding: .6rem .1rem;
+    border-radius: .2rem;
+    width: 300px;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+.btn:hover{
+    background-color: #66c0ca;
+}
+

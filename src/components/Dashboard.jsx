@@ -3,7 +3,7 @@ import Sidebar from './sidebar';
 import Header from './header';
 import Content from './content';
 import './dashboard.css';
-import Profile from '../forms/Profile';
+
 
 const Dashboard = () => {
     const [category,setCategory]=useState ('profile')
@@ -17,7 +17,6 @@ const Dashboard = () => {
                 <div className='dashboard'>
                     <Sidebar onChangeCategory={onChangeCategory}/>
                     <Content category={category}/>
-                    {/* <Profile/> */}
                 </div>
             </>
   )
