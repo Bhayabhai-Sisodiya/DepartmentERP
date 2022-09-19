@@ -24,7 +24,6 @@
     width: 100%;
     text-align: center;
     transition: .5s;
-    
 }
 .sidebar{
     position: absolute;
@@ -40,7 +39,7 @@
     text-align:left;
     list-style: none;
 }
-.sidebar ul li {
+.sidebar ul .list {
     position: relative;
     text-transform: uppercase;
     font-size: 1.2rem;
@@ -48,8 +47,7 @@
     padding: 10px;
     transition: .3s;
     cursor: pointer;
-    height: 100%;
-    
+    height: 100%; 
 }
 
 .list::after{

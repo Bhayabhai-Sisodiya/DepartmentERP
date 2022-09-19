@@ -6,7 +6,7 @@ import './dashboard.css';
 
 
 const Dashboard = () => {
-    const [category,setCategory]=useState ('profile')
+    const [category,setCategory]=useState ('')
 
     const onChangeCategory=(_category)=>{
         setCategory(_category);
