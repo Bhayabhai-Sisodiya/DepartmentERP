@@ -20,8 +20,11 @@ const Book_publish = () => {
 
             {/* add book publish details */}
             {Show?<div className='forms'>
-                <div className='close-btn' onClick={() =>setShow(false)}>
-                <AiOutlineClose/>
+                <div className='form-header'>
+                    <h3>book publish details</h3>
+                    <div className='close-btn' onClick={() =>setShow(false)}>
+                        <AiOutlineClose/>
+                    </div>
                 </div>
                 <div className='input-field'>
                     <input type='text' value={Book.title} placeholder='book Title'/>

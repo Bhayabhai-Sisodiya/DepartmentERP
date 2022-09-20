@@ -29,7 +29,7 @@ const Content = (props) => {
         'researches' : <Researches />,
         'tours' :<Tours />,
         'works' : <Works />,
-        'expert talks' : <Expert_talks />,
+        'expert talk' : <Expert_talks />,
 
     };
     return ( 

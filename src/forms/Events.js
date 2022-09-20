@@ -21,8 +21,11 @@ const Events = () => {
 
             {/* add Event details */}
             {Show?<div className='forms'>
-                <div className='close-btn' onClick={() =>setShow(false)}>
-                <AiOutlineClose/>
+                <div className='form-header'>
+                    <h3>Event details</h3>
+                    <div className='close-btn' onClick={() =>setShow(false)}>
+                        <AiOutlineClose/>
+                    </div>
                 </div>
                 <div className='input-field'>
                     <p className='input-title'>choose a type:</p>

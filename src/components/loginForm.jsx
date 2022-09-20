@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
-import { Link, Navigate, useHistory } from 'react-router-dom';
+import React, { useState,createContext,useContext} from 'react';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import pic from "../images/Side-img.webp";
 import bg from "../images/bvm.jpg"; 
 import { BsEnvelopeFill } from "react-icons/bs";
 import {BsLockFill} from "react-icons/bs";
+import axios from 'axios';
+import TokenContext from './tokenContext';
+
+// import "../App.css";
 // import "../App.css"
-// import "../App.css"
+
 
 
 export default function Form() {
@@ -15,7 +19,14 @@ export default function Form() {
   const [password, setPassword] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
+
+  const navigate = useNavigate();
+
+  const [token,setToken]=useState('');
+
+  const handleToken =(token)=>{setToken(token)};
  
+
   // Handling the name change
   /* const handleName = (e) => {
     setName(e.target.value);
@@ -36,19 +47,46 @@ export default function Form() {
  
   // Handling the form submission
   const handleSubmit =async (e) => {
-    e.preventDefault();
+    //e.preventDefault();
     if ( email === '' || password === '') {
       setError(true);
-    } else {
-      const requestOptions={
+    } 
+    else {
+      /* const requestOptions={
         method:'POST',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({username:email,password:password})
       }
-      const res=await fetch('http://localhost:8080/login',requestOptions)
-      setSubmitted(true);
-      setError(false);
-    }
+      const res=await fetch('http://localhost:5000/login',requestOptions) */
+      //setSubmitted(true);
+      //setError(false);
+      const res=await axios.post("http://localhost:5000/login", {
+        username: email,
+        password: password,
+      }); 
+
+      if(res.status===401 ){
+        window.alert("Please try again!");
+        console.log("Some error accured");
+      }
+      else if(res.status===409){
+        window.alert("No user found!");
+        console.log("User not found");
+      }
+      else if(res.status===200){
+        console.log(res)
+        window.alert("Successfull login!")
+        console.log("login successfully");
+
+        console.log(res.data["x-auth-token"]);
+        setToken(res.data["x-auth-token"]);
+        //navigate('/dashboard');
+      }
+      else{
+        window.alert("You have not approved by admin!")
+        console.log("adminin-aproval:false");
+      }
+  }
   };
  
   // Showing success message
@@ -92,7 +130,7 @@ export default function Form() {
         <div className='right-part'>
           <h1 className='form-heading'>User Login</h1>
           <div className='registration-form'>
-            <form  method="POST">
+            {/* <form  method="POST"> */}
               <div className='input-detail'>
                 <BsEnvelopeFill/>
                 <input onChange={handleEmail} className="input" value={email} type="email" placeholder='Email'/>
@@ -106,7 +144,7 @@ export default function Form() {
               <div className='submit-btn'>
               <button onClick={()=>handleSubmit()} className="btn" type="submit">Submit</button>
               </div>
-            </form>
+            {/* </form> */}
             <p>New User? <Link to='/signup'>Register here.</Link></p>
           </div>
         </div>

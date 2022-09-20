@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -8,36 +8,18 @@ import pic from "../images/Side-img.webp";
 import bg from "../images/bvm.jpg";
 import { BsEnvelopeFill } from "react-icons/bs";
 import {BsLockFill} from "react-icons/bs";
-
-
+import axios from 'axios';
+import "../App.css";
 
 export default function Form() {
 
-  // States for registration
-  //const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [conpass, setconpass] = useState('');
-  // States for checking the errors
+  const [conpass, setconpass] = useState(''); 
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
 
-  /* const schema=yup.object().shape({
-    vemail : yup.string().required().email(),
-    vpassword: yup.string().required(),
-    vconfpassword: yup.string().required()
-}); */
-
-  /* const App =()=>
-  {
-  
-      const{handleSubmit}=useForm({
-          resolver:yupResolver(schema)
-      })
-  
-  } */
-
-
+  const navigate = useNavigate();
 
   function validation(email, password, confpass) {
     const schema = Joi.object({
@@ -75,18 +57,21 @@ export default function Form() {
 
 
   const handleSubmit = async (e) => {
-
-
     if (password != "" && password == conpass) {
-      const { err } = validation(email, password, conpass);
+      /*const { err } = validation(email, password, conpass);
       if (err) {
         alert("Please entered email or password correctly");
         return;
       }
-      else {
-        setSubmitted(true);
+      else {*/
+        //setSubmitted(true);
+        console.log(email);
+        const res=await axios.post("http://localhost:5000/registration", {
+        username: email,
+        password: password,
+      }); 
 
-        const res = await fetch("http://localhost:5000/registration", {
+        /* const res = await fetch("http://localhost:5000/registration", {
 
           method: "POST",
           headers: {
@@ -97,29 +82,35 @@ export default function Form() {
             "username": email,
             "password": password
           })
-        })
+        }) */
+      
+        console.log(res);
+        console.log(res.status);
+        if(res.status=== 401 ){
+          window.alert("Invalid registration");
+          console.log("Invalid registration");
 
-      }
+        }
+        else if(res.status==201){
+          window.alert("User already exist");            
+          console.log("User already exist");
+        }
+        else{
+          window.alert("Registration Successfull , wait for day or two for admin's approval");
+          console.log("Registration Successfull");
+         // navigate('/login');
+        }
+        
+
+     // }
 
     }
     else {
       alert("Please enter password correctly");
 
     }
-    // const mailformat = "/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/";
-    // e.preventDefault();
-    // if (email === '' || password === '' || conpass === '') {
-    //   setError(true);
-    // }
-    // if (password === conpass) {
-    //     setError(true);
-    //   }
-    // if(email.match(mailformat)) {
-    //     setSubmitted(true);
-    // }
 
-
-
+    
   };
 
 
@@ -148,22 +139,6 @@ export default function Form() {
     );
   };
 
-  /*  const PostData= async (e)=>{
-     e.preventDefault();
- 
-     const res=await  fetch("/registration",{
- 
-         method:"POST",
-         headers:{
-             "Content-Type" :"application/json"
-         },
-         body:JSON.stringify({
- 
-             "username":email,
-             "password":password
-         })
-     })
-   } */
 
   return (
     <React.Fragment>
@@ -179,7 +154,7 @@ export default function Form() {
         <div className='right-part'>
           <h1 className='form-heading'>Faculty Registration</h1>
           <div className='registration-form'>
-            <form onSubmit={handleSubmit} method="POST">
+            {/* <form onSubmit={handleSubmit} method="POST"> */}
               <div className='input-detail'>
                 <BsEnvelopeFill/>
                 <input onChange={handleEmail} className="input" value={email} type="email" placeholder='Email' required/>
@@ -196,9 +171,9 @@ export default function Form() {
               </div>
 
               <div className='submit-btn'>
-              <button className="btn" type="submit">Submit</button>
+              <button onClick={handleSubmit} className="btn" type="submit">Submit</button>
               </div>
-            </form>
+            {/* </form> */}
             <p>Already have an account? <Link to='/login'>Login Here.</Link></p>
           </div>
         </div>

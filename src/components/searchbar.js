@@ -4,7 +4,11 @@ import './dashboard.css';
 const Searchbar = () => {
     return ( 
         <div className='search-box'>
-             search bar here
+             <form>
+             <div className='input-field'>
+                    <input  type='text' name='title' placeholder='search here'/>
+                </div>
+             </form>
         </div>
      );
 }

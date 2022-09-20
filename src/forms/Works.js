@@ -20,8 +20,11 @@ const Works = () => {
 
             {/* add paper details */}
             {Show?<div className='forms'>
-                <div className='close-btn' onClick={() =>setShow(false)}>
-                <AiOutlineClose/>
+            <   div className='form-header'>
+                    <h3>work details</h3>
+                    <div className='close-btn' onClick={() =>setShow(false)}>
+                        <AiOutlineClose/>
+                    </div>
                 </div>
                 
                 <div className='input-field'>
