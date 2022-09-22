@@ -1,14 +1,17 @@
 import React from 'react';
 import './dashboard.css';
-
+import { BiSearch } from "react-icons/bi";
+import { FaFilter } from "react-icons/fa";
 const Searchbar = () => {
     return ( 
         <div className='search-box'>
              <form>
-             <div className='input-field'>
-                    <input  type='text' name='title' placeholder='search here'/>
+               <div className='search-field'>
+                    <input  type='text'  placeholder='search here..'/>
+                    <span><BiSearch/></span>
                 </div>
              </form>
+             <button className='filter-btn'><FaFilter/>filter</button>
         </div>
      );
 }

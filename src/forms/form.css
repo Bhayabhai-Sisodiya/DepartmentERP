@@ -25,7 +25,7 @@
 .form-header{
     display: flex;
     justify-content: space-between;
-    color: black;
+    color: var(--black);
     padding: .4rem;
     border-bottom: 1px solid grey;
 }
@@ -45,7 +45,7 @@
 }
 .forms{
     position: relative;
-    top: 40%;
+    top: 20%;
     left: 50%;
     transform: translate(-60%,-65%);
     box-shadow: 0 2px 5px rgb(0 0 0 / 16%), 0 2px 10px rgb(0 0 0 / 12%);
@@ -56,6 +56,13 @@
     padding: .5rem;
     background-color: white;
     transition: .8s;
+}
+
+/*************** event-form ***************/
+.event-form {
+    top: 40%;
+    left: 50%;
+    transform: translate(-60%,-65%);
 }
 .input-title{
     width: auto;
@@ -79,7 +86,7 @@
 }
 
 .input-field input::placeholder{
-    color: black;
+    color: rgba(79, 97, 98, 0.587);
     text-transform: capitalize;
 }
 .select-options{

@@ -5,7 +5,7 @@ import Content from './content';
 import './dashboard.css';
 
 
-const Dashboard = () => {
+const Dashboard = ({Token}) => {
     const [category,setCategory]=useState ('')
 
     const onChangeCategory=(_category)=>{
@@ -16,7 +16,7 @@ const Dashboard = () => {
                 <Header/>
                 <div className='dashboard'>
                     <Sidebar onChangeCategory={onChangeCategory}/>
-                    <Content category={category}/>
+                    <Content category={category} token = {Token}/>
                 </div>
             </>
   )

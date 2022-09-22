@@ -12,7 +12,7 @@ import TokenContext from './tokenContext';
 
 
 
-export default function Form() {
+export default function LoginForm({setToken}) {
  
   // States for registration 
   const [email, setEmail] = useState('');
@@ -20,12 +20,7 @@ export default function Form() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
 
-  const navigate = useNavigate();
-
-  const [token,setToken]=useState('');
-
-  const handleToken =(token)=>{setToken(token)};
- 
+  const navigate = useNavigate(); 
 
   // Handling the name change
   /* const handleName = (e) => {
@@ -80,7 +75,8 @@ export default function Form() {
 
         console.log(res.data["x-auth-token"]);
         setToken(res.data["x-auth-token"]);
-        //navigate('/dashboard');
+        localStorage.setItem('Token',res.data["x-auth-token"]);
+        navigate('/dashboard');
       }
       else{
         window.alert("You have not approved by admin!")

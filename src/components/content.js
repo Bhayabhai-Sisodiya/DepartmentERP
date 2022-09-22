@@ -15,10 +15,10 @@ import Works from '../forms/Works';
 import Expert_talks from '../forms/Expert_talks';
 
 
-const Content = (props) => {
+const Content = ({category,token}) => {
 
     const map1={
-        'profile':<Profile />,
+        'profile':<Profile/>,
         'papers' :<Papers />,
         'events' :<Events />,
         'grants' : <Grants />,
@@ -37,7 +37,7 @@ const Content = (props) => {
         
         <div className='content'>
         <Searchbar/>
-        {map1[props.category]}
+        {map1[category]}
         </div>
         </>
      );
