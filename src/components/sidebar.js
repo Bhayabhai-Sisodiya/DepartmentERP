@@ -58,4 +58,4 @@ const Sidebar = (props) => {
  
 export default Sidebar
 
-const categories = ['profile','papers','events','grants','workshops','book publish','patents','phds','researches','tours','works','expert talk']
+const categories = ['profile','papers','event organized','grants','event attended','book publication','patents','phd completed','research projects','study tours','consultancy work','expert talk']

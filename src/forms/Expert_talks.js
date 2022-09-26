@@ -6,11 +6,11 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { HiPrinter } from "react-icons/hi";
 import axios from 'axios';
 import ReactToPrint from 'react-to-print';
-
+import Searchbar from '../components/searchbar';
 
 const Expert_talks = () => {
     const [Talks, setTalks] = useState({
-        title_talk:"", title_program:"",date:"",vanue:""
+        title_talk:"",faculty_name:"", title_program:"",date:"",vanue:""
     });
 
     const componentRef = useRef();
@@ -20,10 +20,18 @@ const Expert_talks = () => {
         setTalks({...Talks,[e.target.name]:e.target.value});
     }
 
+    //handle search
+    const [serchQuery,setSearchQuery]=useState("");
+    const handleSearch=(query)=>{
+        setSearchQuery(query);
+        console.log(query);
+    }
+
     const handleSubmit =async (e)=> {
             
         const newData={
-            "title_talk":Talks.title_talk, 
+            "title_talk":Talks.title_talk,
+            "faculty_name":Talks.faculty_name, 
             "title_program":Talks.title_program,
             "date":Talks.date,
             "vanue":Talks.vanue
@@ -34,13 +42,19 @@ const Expert_talks = () => {
           headers:{"x-auth-token":localStorage.getItem("Token")}
       });
         console.log(result.status);
-        window.alert(result.status);
+        // window.alert(result.status);
         if(result.status===401){
             window.alert("some error has been accured");
         }
         else if(result.status===200){
             setData(prev=>[...prev,newData]);
+            setShow(false);
+            window.alert("data added successfully!");
         }
+    }
+
+    const clearform = () => {
+        setTalks("");
     }
 
     //fetching data from the database
@@ -58,15 +72,20 @@ const Expert_talks = () => {
         console.log(response.data);
         setData(response.data);
     } 
+    let filtered=Data;
+    if(serchQuery){
+        filtered=Data.filter(m=> m.title_talk.toLowerCase().includes(serchQuery.toLowerCase()));
+    }
 
     //onclick add new button - show form
     const [Show,setShow] = useState(false) 
     
     return ( 
         <>
+            <Searchbar value={serchQuery} onChange={handleSearch}/>
             {/* add new button */}
             <div className='add-btn'>
-                <button className='btn' onClick={() =>setShow(true)}><span><AiOutlinePlus /></span>add new</button>
+                <button className='btn' onClick={() =>{setShow(true);clearform()}}><span><AiOutlinePlus /></span>add new</button>
             </div>
 
             <div className='table-show-outer-box'>
@@ -75,6 +94,7 @@ const Expert_talks = () => {
             <table>
                 <tr>
                     <th>title talk</th>
+                    <th>faculty</th>
                     <th>title program</th>
                     <th>date</th>
                     <th>vanue</th>
@@ -82,6 +102,7 @@ const Expert_talks = () => {
                   {Data.map((item, i) => (
                     <tr key={i}>
                         <td>{item.title_talk}</td>
+                        <td>{item.faculty_name}</td>
                         <td>{item.title_program}</td>
                         <td>{item.date}</td>
                         <td>{item.vanue}</td>
@@ -109,6 +130,9 @@ const Expert_talks = () => {
                 </div>
                 <div className='input-field'>
                     <input onChange={handleChange} name='title_talk' type='text' value={Talks.title_talk} placeholder='title'/>
+                </div>
+                <div className='input-field'>
+                    <input onChange={handleChange} name='faculty_name' type='text' value={Talks.faculty_name} placeholder='faculty'/>
                 </div>
                 <div className='input-field'>
                     <input onChange={handleChange} name='title_program' type='text' value={Talks.title_program} placeholder='title program'/>

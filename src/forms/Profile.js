@@ -14,6 +14,7 @@ const Profile = () => {
 
     return (
       <>
+            
             {/* add new button */}
             <div className='add-btn'>
                 <button className='btn' onClick={() =>setShow(true)}><span><AiOutlinePlus /></span>add profile details</button>
