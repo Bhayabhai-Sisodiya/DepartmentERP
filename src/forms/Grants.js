@@ -6,6 +6,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { HiPrinter } from "react-icons/hi";
 import axios from 'axios';
 import ReactToPrint from 'react-to-print';
+import Searchbar from '../components/searchbar';
 
 
 const Grants = () => {
@@ -24,6 +25,12 @@ const Grants = () => {
         //window.alert(e.target.value);
         setGrant({...Grant,[e.target.name]:e.target.value});
     }
+    //handle search
+    const [serchQuery,setSearchQuery]=useState("");
+    const handleSearch=(query)=>{
+        setSearchQuery(query);
+        console.log(query);
+    }
 
     const handleSubmit =async (e)=> {
         const newData = {
@@ -37,15 +44,20 @@ const Grants = () => {
           headers:{"x-auth-token":localStorage.getItem("Token")}
       });
         console.log(result.status);
-        window.alert(result.status);
+        // window.alert(result.status);
         if(result.status===401){
             window.alert("some error has been accured");
         }
         else if(result.status===200) {
-            setData(prev => [...prev,newData])
+            setData(prev => [...prev,newData]);
+            setShow(false);
+            window.alert("data added successfully!");
         }
     }
 
+    const clearform = () => {
+        setGrant("");
+    }
     //fetching data from the database
     const [Data,setData]=useState([]);
     useEffect(()=>{
@@ -63,11 +75,17 @@ const Grants = () => {
         setData(response.data);
     } 
 
+    let filtered=Data;
+    if(serchQuery){
+        filtered=Data.filter(m=> m.cordinator.toLowerCase().includes(serchQuery.toLowerCase()));
+    }
+
     return ( 
         <>
+            <Searchbar value={serchQuery} onChange={handleSearch}/>
             {/* add new button */}
             <div className='add-btn'>
-                <button className='btn' onClick={() =>setShow(true)}><span><AiOutlinePlus /></span>add new</button>
+                <button className='btn' onClick={() =>{setShow(true);clearform()}}><span><AiOutlinePlus /></span>add new</button>
             </div>
 
             {/* showing the fetched data */}
@@ -81,7 +99,7 @@ const Grants = () => {
                             <th>funding agency</th>
                             <th>amount</th>
                         </tr>                      
-                        {Data.map((item, i) => (
+                        {filtered.map((item, i) => (
                             <tr key={i}>
                                 <td>{item.cordinator}</td>
                                 <td>{item.project_title}</td>

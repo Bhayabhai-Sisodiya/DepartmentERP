@@ -6,6 +6,8 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { HiPrinter } from "react-icons/hi";
 import axios from 'axios';
 import ReactToPrint from 'react-to-print';
+import Searchbar from '../components/searchbar';
+
 const Phds = () => {
     const [Phd, setPhd] = useState({
         title:"",date_of_completion:"",institute:""
@@ -22,6 +24,13 @@ const Phds = () => {
         setPhd({...Phd,[e.target.name]:e.target.value});
     }
 
+    //handle search
+    const [serchQuery,setSearchQuery]=useState("");
+    const handleSearch=(query)=>{
+        setSearchQuery(query);
+        console.log(query);
+    }
+
     const handleSubmit =async (e)=> {
         const newData = {
             "title":Phd.title, 
@@ -33,13 +42,19 @@ const Phds = () => {
           headers:{"x-auth-token":localStorage.getItem("Token")}
       });
         console.log(result.status);
-        window.alert(result.status);
+        // window.alert(result.status);
         if(result.status===401){
             window.alert("some error has been accured");
         }
         else if(result.status===200) {
-            setData(prev => [...prev,newData])
+            setData(prev => [...prev,newData]);
+            setShow(false);
+            window.alert("data added successfully!");
         }
+    }
+
+    const clearform = () => {
+        setPhd("");
     }
 
     //fetching data from the database
@@ -59,24 +74,30 @@ const Phds = () => {
         setData(response.data);
     }
 
+    let filtered=Data;
+    if(serchQuery){
+        filtered=Data.filter(m=> m.title.toLowerCase().includes(serchQuery.toLowerCase()));
+    }
+
     return ( 
         <>
+            <Searchbar value={serchQuery} onChange={handleSearch}/>
             {/* add new button */}
             <div className='add-btn'>
-                <button className='btn' onClick={() =>setShow(true)}><span><AiOutlinePlus /></span>add new</button>
+                <button className='btn' onClick={() =>{setShow(true);clearform()}}><span><AiOutlinePlus /></span>add new</button>
             </div>
 
             {/* showing the fetched data */}
             <div className='table-show-outer-box'>
             <div ref={componentRef} className='showData' >
-                <h2>Phds</h2>
+                <h2>Phd completed</h2>
                     <table>
                         <tr>
                             <th>title</th>
                             <th>date of completion</th>
                             <th>institute</th>
                         </tr>                      
-                        {Data.map((item, i) => (
+                        {filtered.map((item, i) => (
                             <tr key={i}>
                                 <td>{item.title}</td>
                                 <td>{item.date_of_completion}</td>
@@ -98,7 +119,7 @@ const Phds = () => {
             {/* add paper details */}
             {Show?<div className='forms'>
                 <div className='form-header'>
-                    <h3>phd details</h3>
+                    <h3>add Phd completed details</h3>
                     <div className='close-btn' onClick={() =>setShow(false)}>
                         <AiOutlineClose/>
                     </div>

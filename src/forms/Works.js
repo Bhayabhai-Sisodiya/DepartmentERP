@@ -6,6 +6,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { HiPrinter } from "react-icons/hi";
 import axios from 'axios';
 import ReactToPrint from 'react-to-print';
+import Searchbar from '../components/searchbar';
 
 
 const Works = () => {
@@ -18,6 +19,13 @@ const Works = () => {
     const handleChange = (e) => {
         //window.alert(e.target.value);
         setWork({...Work,[e.target.name]:e.target.value});
+    }
+
+    //handle search
+    const [serchQuery,setSearchQuery]=useState("");
+    const handleSearch=(query)=>{
+        setSearchQuery(query);
+        console.log(query);
     }
 
     const handleSubmit =async (e)=> {
@@ -34,13 +42,19 @@ const Works = () => {
           headers:{"x-auth-token":localStorage.getItem("Token")}
       });
         console.log(result.status);
-        window.alert(result.status);
+        // window.alert(result.status);
         if(result.status===401){
             window.alert("some error has been accured");
         }
         else if(result.status===200){
             setData(prev=>[...prev,newData]);
+            setShow(false);
+            window.alert("data added successfully!");
         }
+    }
+
+    const clearform = () => {
+        setWork("");
     }
 
     //fetching data from the database
@@ -59,20 +73,25 @@ const Works = () => {
         setData(response.data);
     } 
 
+    let filtered=Data;
+    if(serchQuery){
+        filtered=Data.filter(m=> m.faculty_involved.toLowerCase().includes(serchQuery.toLowerCase()));
+    }
 
     //onclick add new button - show form
     const [Show,setShow] = useState(false) 
     
     return ( 
         <>
+            <Searchbar value={serchQuery} onChange={handleSearch}/>
             {/* add new button */}
             <div className='add-btn'>
-                <button className='btn' onClick={() =>setShow(true)}><span><AiOutlinePlus /></span>add new</button>
+                <button className='btn' onClick={() =>{setShow(true);clearform()}}><span><AiOutlinePlus /></span>add new</button>
             </div>
 
             <div className='table-show-outer-box'>
             <div ref={componentRef} className='showData' >
-                <h2>works</h2>
+                <h2>consultancy work</h2>
             <table>
                 <tr>
                     <th>detail</th>
@@ -80,12 +99,12 @@ const Works = () => {
                     <th>cost</th>
                     <th>faculty involved</th>
                 </tr>
-                  {Data.map((item, i) => (
+                  {filtered.map((item, i) => (
                     <tr key={i}>
                         <td>{item.details}</td>
                         <td>{item.client}</td>
                         <td>{item.cost}</td>
-                        <td>{item.faculty_involved[0]}</td>
+                        <td>{item.faculty_involved}</td>
                     </tr>
                 ))}  
             </table>
@@ -104,7 +123,7 @@ const Works = () => {
             {/* add paper details */}
             {Show?<div className='forms'>
             <div className='form-header'>
-                    <h3>work details</h3>
+                    <h3>add consultancy work details</h3>
                     <div className='close-btn' onClick={() =>setShow(false)}>
                         <AiOutlineClose/>
                     </div>

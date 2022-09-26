@@ -4,6 +4,7 @@ import '../components/showData.css';
 import { AiOutlineClose } from "react-icons/ai";
 import { AiOutlinePlus } from "react-icons/ai";
 import { HiPrinter } from "react-icons/hi";
+import Searchbar from '../components/searchbar';
 import axios from 'axios';
 import ReactToPrint from 'react-to-print';
 
@@ -23,6 +24,13 @@ const Events = () => {
         setEvent({...Event,[e.target.name]:e.target.value});
     }
 
+    //handle search
+    const [serchQuery,setSearchQuery]=useState("");
+    const handleSearch=(query)=>{
+        setSearchQuery(query);
+        console.log(query);
+    }
+
     const handleSubmit =async (e)=> {
         const newData = {
             "type":Event.type, 
@@ -40,13 +48,19 @@ const Events = () => {
           headers:{"x-auth-token":localStorage.getItem("Token")}
       });
         console.log(result.status);
-        window.alert(result.status);
+        // window.alert(result.status);
         if(result.status===401){
             window.alert("some error has been accured");
         }
         else if(result.status===200) {
-            setData(prev => [...prev,newData])
+            setData(prev => [...prev,newData]);
+            setShow(false);
+            window.alert("data added successfully!");
         }
+    }
+
+    const clearform = () => {
+        setEvent("");
     }
 
     //fetching data from the database
@@ -67,17 +81,23 @@ const Events = () => {
         setData(response.data);
     }
 
+    let filtered=Data;
+    if(serchQuery){
+        filtered=Data.filter(m=> m.cordinator.toLowerCase().includes(serchQuery.toLowerCase()));
+    }
+
     return ( 
         <>
+            <Searchbar value={serchQuery} onChange={handleSearch}/>
             {/* add new button */}
             <div className='add-btn'>
-                <button className='btn' onClick={() =>setShow(true)}><span><AiOutlinePlus /></span>add new</button>
+                <button className='btn' onClick={() =>{setShow(true);clearform()}}><span><AiOutlinePlus /></span>add new</button>
             </div>
 
             {/* showing the fetched data */}
             <div className='table-show-outer-box'>
             <div ref={componentRef} className='showData' >
-                <h2>events</h2>
+                <h2>event organized</h2>
                     <table>
                         <tr>
                             <th>type</th>
@@ -90,7 +110,7 @@ const Events = () => {
                             <th>for whom</th>
                             <th>report</th>
                         </tr>                      
-                        {Data.map((item, i) => (
+                        {filtered.map((item, i) => (
                             <tr key={i}>
                                 <td>{item.type}</td>
                                 <td>{item.cordinator}</td>
@@ -120,7 +140,7 @@ const Events = () => {
             {/* add Event details */}
             {Show?<div className='forms event-form'>
                 <div className='form-header'>
-                    <h3>Event details</h3>
+                    <h3>add event organized details</h3>
                     <div className='close-btn' onClick={() =>setShow(false)}>
                         <AiOutlineClose/>
                     </div>

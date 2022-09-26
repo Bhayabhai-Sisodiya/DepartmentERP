@@ -5,7 +5,9 @@ import { AiOutlineClose } from "react-icons/ai";
 import { AiOutlinePlus } from "react-icons/ai";
 import { HiPrinter } from "react-icons/hi";
 import axios from 'axios';
+import Searchbar from '../components/searchbar';
 import ReactToPrint from 'react-to-print';
+
 
 const Patents = () => {
     const [Patent, setPatent] = useState({
@@ -20,6 +22,13 @@ const Patents = () => {
     const handleChange = (e) => {
         //window.alert(e.target.value);
         setPatent({...Patent,[e.target.name]:e.target.value});
+    }
+
+    //handle search
+    const [serchQuery,setSearchQuery]=useState("");
+    const handleSearch=(query)=>{
+        setSearchQuery(query);
+        console.log(query);
     }
 
     const handleSubmit =async (e)=> {
@@ -37,14 +46,20 @@ const Patents = () => {
           headers:{"x-auth-token":localStorage.getItem("Token")}
       });
         console.log(result.status);
-        window.alert(result.status);
+        // window.alert(result.status);
         if(result.status===401){
             window.alert("some error has been accured");
         }
         else if(result.status===200)
         {
             setData(prev=>[...prev,newData]);
+            setShow(false);
+            window.alert("data added successfully!");
         }
+    }
+
+    const clearform = () => {
+        setPatent("");
     }
 
     //fetching data from the database
@@ -63,12 +78,17 @@ const Patents = () => {
         setData(response.data);
     } 
 
+    let filtered=Data;
+    if(serchQuery){
+        filtered=Data.filter(m=> m.faculty[0].toLowerCase().includes(serchQuery.toLowerCase()));
+    }
 
     return ( 
         <>
+            <Searchbar value={serchQuery} onChange={handleSearch}/>
             {/* add new button */}
             <div className='add-btn'>
-                <button className='btn' onClick={() =>setShow(true)}><span><AiOutlinePlus /></span>add new</button>
+                <button className='btn' onClick={() =>{setShow(true);clearform()}}><span><AiOutlinePlus /></span>add new</button>
             </div>
 
             <div className='table-show-outer-box'>
@@ -82,7 +102,7 @@ const Patents = () => {
                     <th>date</th>
                     <th>Status</th>
                 </tr>
-                  {Data.map((item, i) => (
+                  {filtered.map((item, i) => (
                     <tr key={i}>
                         <td>{item.faculty[0]}</td>
                         <td>{item.title}</td>

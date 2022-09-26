@@ -6,7 +6,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { HiPrinter } from "react-icons/hi";
 import axios from 'axios';
 import ReactToPrint from 'react-to-print';
-
+import Searchbar from '../components/searchbar'
 
 const Papers = () => {
     // const downloadData = () => {
@@ -39,6 +39,15 @@ const Papers = () => {
         setPaper({...Paper,[e.target.name]:e.target.value});
     }
 
+    //search handle
+    const [serchQuery,setSearchQuery]=useState("");
+    const handleSearch=(query)=>{
+        setSearchQuery(query);
+        console.log(query);
+    }
+
+    
+
     const handleSubmit =async (e)=> {
         const newData = {
             "type1":Paper.type1, 
@@ -56,13 +65,19 @@ const Papers = () => {
           headers:{"x-auth-token":localStorage.getItem("Token")}
       });
         console.log(result.status);
-        window.alert(result.status);
+        // window.alert(result.status);
         if(result.status===401){
             window.alert("some error has been accured");
         }
         else if(result.status===200) {
-            setData(prev => [...prev,newData])
+            setData(prev => [...prev,newData]);
+            setShow(false);
+            window.alert("data added successfully!");
         }
+    }
+
+    const clearform = () => {
+        setPaper("");
     }
 
     //fetching data from the database
@@ -83,13 +98,18 @@ const Papers = () => {
         setData(response.data);
     } 
 
+    let filtered=Data;
+    if(serchQuery){
+        filtered=Data.filter(m=> m.author[0].toLowerCase().includes(serchQuery.toLowerCase()));
+    }
     
 
     return ( 
         <>
             {/* add new button */}
+            <Searchbar value={serchQuery} onChange={handleSearch}/>
             <div className='add-btn'>
-                <button className='btn' onClick={() =>setShow(true)}><span><AiOutlinePlus /></span>add new</button>
+                <button className='btn' onClick={() =>{setShow(true);clearform()}}><span><AiOutlinePlus /></span>add new</button>
             </div>
 
             {/* showing the fetched data */}
@@ -109,7 +129,7 @@ const Papers = () => {
                             <th>indexing</th>
                             <th>ISBN</th>
                         </tr>                      
-                        {Data.map((item, i) => (
+                        {filtered.map((item, i) => (
                             <tr key={i}>
                                 <td>{item.type1}</td>
                                 <td>{item.title}</td>
@@ -138,7 +158,7 @@ const Papers = () => {
             </div>
 
             {/* add paper details */}
-            {Show?<div className='forms'>
+            {Show?<div className='forms paper-form'>
                 <div className='form-header'>
                     <h3>paper details</h3>
                 

@@ -15,20 +15,20 @@ import Works from '../forms/Works';
 import Expert_talks from '../forms/Expert_talks';
 
 
-const Content = ({category,token}) => {
+const Content = ({category}) => {
 
     const map1={
         'profile':<Profile/>,
         'papers' :<Papers />,
-        'events' :<Events />,
+        'event organized' :<Events />,
         'grants' : <Grants />,
-        'workshops' : <Workshops />,
-        'book publish' :<Book_publish />,
+        'event attended' : <Workshops />,
+        'book publication' :<Book_publish />,
         'patents' : <Patents />,
-        'phds' : <Phds />,
-        'researches' : <Researches />,
-        'tours' :<Tours />,
-        'works' : <Works />,
+        'phd completed' : <Phds />,
+        'research projects' : <Researches />,
+        'study tours' :<Tours />,
+        'consultancy work' : <Works />,
         'expert talk' : <Expert_talks />,
 
     };
@@ -36,7 +36,6 @@ const Content = ({category,token}) => {
         <>
         
         <div className='content'>
-        <Searchbar/>
         {map1[category]}
         </div>
         </>
