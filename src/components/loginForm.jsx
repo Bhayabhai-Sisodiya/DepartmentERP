@@ -127,6 +127,15 @@ export default function LoginForm({setToken}) {
           <h1 className='form-heading'>User Login</h1>
           <div className='registration-form'>
             {/* <form  method="POST"> */}
+            <div className='radio-detail'>
+              <h3 className='user-type'>user type</h3>
+              <div className='radio-btn'>
+              <div className='btn'>
+                <input onChange={handleEmail} className="input" name='user' value="faculty" type="radio" required/><p>faculty</p></div>
+              <div className='btn'>  
+                <input onChange={handleEmail} className="input" name='user' value="admin" type="radio" required/><p>admin</p></div>
+              </div>
+              </div>
               <div className='input-detail'>
                 <BsEnvelopeFill/>
                 <input onChange={handleEmail} className="input" value={email} type="email" placeholder='Email'/>
@@ -141,7 +150,7 @@ export default function LoginForm({setToken}) {
               <button onClick={()=>handleSubmit()} className="btn" type="submit">Submit</button>
               </div>
             {/* </form> */}
-            <p>New User? <Link to='/signup'>Register here.</Link></p>
+            <p className='form-para'>New User? <Link to='/signup'>Register here.</Link></p>
           </div>
         </div>
       </div> 

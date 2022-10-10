@@ -28,6 +28,16 @@ const Works = () => {
         console.log(query);
     }
 
+    //handel delete
+    const handleDelete=async (item)=>{
+        const newData = {"id":item}
+        const result=await axios.post("http://localhost:5000/delete_work", newData,{
+          headers:{"x-auth-token":localStorage.getItem("Token")}
+        });
+        const uiData=Data.filter(i=>i._id !==item);
+        setData(uiData);
+    }
+
     const handleSubmit =async (e)=> {
             
         const newData={
@@ -54,7 +64,9 @@ const Works = () => {
     }
 
     const clearform = () => {
-        setWork("");
+        setWork({
+            detail:"", client:"",cost:"",faculty_involved:""
+        });
     }
 
     //fetching data from the database
@@ -87,6 +99,7 @@ const Works = () => {
             {/* add new button */}
             <div className='add-btn'>
                 <button className='btn' onClick={() =>{setShow(true);clearform()}}><span><AiOutlinePlus /></span>add new</button>
+                <button className='btn upload-excel'><span><AiOutlinePlus /></span>upload excel file</button>
             </div>
 
             <div className='table-show-outer-box'>
@@ -98,6 +111,7 @@ const Works = () => {
                     <th>client</th>
                     <th>cost</th>
                     <th>faculty involved</th>
+                    <th>edit</th>
                 </tr>
                   {filtered.map((item, i) => (
                     <tr key={i}>
@@ -105,6 +119,10 @@ const Works = () => {
                         <td>{item.client}</td>
                         <td>{item.cost}</td>
                         <td>{item.faculty_involved}</td>
+                        <td>
+                            <button onClick={()=>handleDelete(item._id)} className=''>Delete</button>
+                            {/* <button onClick={()=>handleDelete(item._id)} className=''>update</button> */}
+                        </td>
                     </tr>
                 ))}  
             </table>
@@ -141,7 +159,14 @@ const Works = () => {
                 <div className='input-field'>
                     <input onChange={handleChange} name='faculty_involved' type='text' value={Work.faculty_involved} placeholder='faculty involved'/>
                 </div>
-                
+                <div className='input-field file-input'>
+                    <p className='input-title'>add a certificate:</p>
+                    <input type='file' onChange={handleChange} name='certificate' value={Work.certificate}/>
+                </div>
+                <div className='input-field file-input'>
+                    <p className='input-title'>add a report:</p>
+                    <input type='file' onChange={handleChange} name='report' value={Work.report}/>
+                </div>
                 <div className='submit'>
                     <button onClick={handleSubmit} className="btn" type="submit">Submit</button>
                 </div>

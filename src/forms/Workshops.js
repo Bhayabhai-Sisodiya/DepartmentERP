@@ -10,7 +10,7 @@ import Searchbar from '../components/searchbar';
 
 const Workshops = () => {
     const [Workshop, setWorkshop] = useState({
-        start_date:"",end_date:"",expert:"",title:"",type:"STTP",funding_agency:""
+        start_date:"",end_date:"",expert:"",title:"",type:"STTP",funding_agency:"",certificate:"",report:"",
     });
     
     const componentRef = useRef();
@@ -31,6 +31,15 @@ const Workshops = () => {
         console.log(query);
     }
 
+    //handel delete
+    const handleDelete=async (item)=>{
+        const newData = {"id":item}
+        const result=await axios.post("http://localhost:5000/delete_faculty_workshop", newData,{
+          headers:{"x-auth-token":localStorage.getItem("Token")}
+        });
+        const uiData=Data.filter(i=>i._id !==item);
+        setData(uiData);
+    }
     const handleSubmit =async (e)=> {
         const newData = {
             "start_date":Workshop.start_date, 
@@ -39,6 +48,8 @@ const Workshops = () => {
             "title":Workshop.title,
             "type":Workshop.type,            
             "funding_agency":Workshop.funding_agency,
+            "certificate":Workshop.certificate,
+            "report":Workshop.report,
       }
         const result=await axios.post("http://localhost:5000/add_faculty_workshop",newData ,{
           
@@ -56,7 +67,9 @@ const Workshops = () => {
         }
     }
     const clearform = () => {
-        setWorkshop("");
+        setWorkshop({
+            start_date:"",end_date:"",expert:"",title:"",type:"STTP",funding_agency:"",certificate:"",report:"",
+        });
     }
 
     //fetching data from the database
@@ -86,6 +99,7 @@ const Workshops = () => {
             {/* add new button */}
             <div className='add-btn'>
                 <button className='btn' onClick={() =>{setShow(true);clearform()}}><span><AiOutlinePlus /></span>add new</button>
+                <button className='btn upload-excel'><span><AiOutlinePlus /></span>upload excel file</button>
             </div>
 
             {/* showing the fetched data */}
@@ -100,6 +114,9 @@ const Workshops = () => {
                             <th>title</th>
                             <th>type</th>
                             <th>funding agency</th>
+                            <th>certificate</th>
+                            <th>report</th>
+                            <th>edit</th>
                         </tr>                      
                         {filtered.map((item, i) => (
                             <tr key={i}>
@@ -109,6 +126,12 @@ const Workshops = () => {
                                 <td>{item.title}</td>
                                 <td>{item.type}</td>
                                 <td>{item.funding_agency[0]}</td>
+                                <td>{item.certificate}</td>
+                                <td>{item.report}</td>
+                                <td>
+                                <button onClick={()=>handleDelete(item._id)} className=''>Delete</button>
+                                {/* <button onClick={()=>handleDelete(item._id)} className=''>update</button> */}
+                                </td>
                             </tr>
                         ))}  
                     </table>
@@ -133,10 +156,10 @@ const Workshops = () => {
                     </div>
                 </div>
                 <div className='input-field'>
-                    <input type='text' onChange={handleChange} name='start_date' value={Workshop.start_date} placeholder='start date'/>
+                    <input type='date' onChange={handleChange} name='start_date' value={Workshop.start_date} placeholder='start date'/>
                 </div>
                 <div className='input-field'>
-                    <input type='text' onChange={handleChange} name='end_date' value={Workshop.end_date} placeholder='end date'/>
+                    <input type='date' onChange={handleChange} name='end_date' value={Workshop.end_date} placeholder='end date'/>
                 </div>
                 <div className='input-field'>
                     <input type='text' onChange={handleChange} name='expert' value={Workshop.expert} placeholder='expert'/>
@@ -159,6 +182,7 @@ const Workshops = () => {
                 <div className='input-field'>
                     <input type='text' onChange={handleChange} name='funding_agency' value={Event.funding_agency} placeholder='funding agency'/>
                 </div>
+
                 <div className='submit'>
                     <button onClick={handleSubmit} className="btn" type="submit">Submit</button>
                 </div>

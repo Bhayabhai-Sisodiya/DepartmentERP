@@ -27,6 +27,16 @@ const Expert_talks = () => {
         console.log(query);
     }
 
+    //handel delete
+    const handleDelete=async (item)=>{
+        const newData = {"id":item}
+        const result=await axios.post("http://localhost:5000/delete_expert_talk", newData,{
+          headers:{"x-auth-token":localStorage.getItem("Token")}
+        });
+        const uiData=Data.filter(i=>i._id !==item);
+        setData(uiData);
+    }
+
     const handleSubmit =async (e)=> {
             
         const newData={
@@ -54,7 +64,9 @@ const Expert_talks = () => {
     }
 
     const clearform = () => {
-        setTalks("");
+        setTalks({
+            title_talk:"",faculty_name:"", title_program:"",date:"",vanue:""
+        });
     }
 
     //fetching data from the database
@@ -86,6 +98,8 @@ const Expert_talks = () => {
             {/* add new button */}
             <div className='add-btn'>
                 <button className='btn' onClick={() =>{setShow(true);clearform()}}><span><AiOutlinePlus /></span>add new</button>
+                <button className='btn upload-excel'><span><AiOutlinePlus /></span>upload excel file</button>
+
             </div>
 
             <div className='table-show-outer-box'>
@@ -97,7 +111,8 @@ const Expert_talks = () => {
                     <th>faculty</th>
                     <th>title program</th>
                     <th>date</th>
-                    <th>vanue</th>
+                    <th>place</th>
+                    <th>edit</th>
                 </tr>
                   {Data.map((item, i) => (
                     <tr key={i}>
@@ -106,6 +121,10 @@ const Expert_talks = () => {
                         <td>{item.title_program}</td>
                         <td>{item.date}</td>
                         <td>{item.vanue}</td>
+                        <td>
+                            <button onClick={()=>handleDelete(item._id)} className=''>Delete</button>
+                            {/* <button onClick={()=>handleDelete(item._id)} className=''>update</button> */}
+                            </td>
                     </tr>
                 ))}  
             </table>
@@ -138,7 +157,7 @@ const Expert_talks = () => {
                     <input onChange={handleChange} name='title_program' type='text' value={Talks.title_program} placeholder='title program'/>
                 </div>
                 <div className='input-field'>
-                    <input onChange={handleChange} name='date' type='text' value={Talks.date} placeholder='date'/>
+                    <input onChange={handleChange} name='date' type='date' value={Talks.date} placeholder='date'/>
                 </div>
                 <div className='input-field'>
                     <input onChange={handleChange} name='vanue' type='text' value={Talks.vanue} placeholder='vanue'/>

@@ -66,6 +66,30 @@ body {
 .left-part img:hover{
   transform: scale(1.2);
 }
+.radio-detail{
+  width: 80%;
+  display: flex;
+  justify-content: space-around;
+  margin: 0 auto;
+}
+.user-type{
+  text-transform: capitalize;
+}
+.radio-btn{
+  display: flex;
+  justify-content: space-evenly;
+}
+.radio-btn .btn {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 2px 8px;
+  text-transform: capitalize;
+}
+.radio-btn .btn p{
+  margin: 0 4px
+}
+
 .input-detail,.submit-btn{
   width: 400px;
   border-radius: 50px;
@@ -108,16 +132,16 @@ body {
   padding: 8px;
   border: none;
 }
-.registration-form p{
+.form-para{
   margin-top: 100px;
   text-align: center;
 }
-.registration-form p a{
-  color:rgba(79, 97, 98, 0.587) ;
+.form-para a{
+  color: rgba(79, 97, 98, 0.849);
   transition: .2s;
 }
-.registration-form p a:hover{
-  color: rgba(79, 97, 98, 0.849);
+.form-para a:hover{
+  color:rgba(79, 97, 98, 0.587) ;
   text-decoration: underline;
   transform: scale(1.2);
 }
@@ -191,7 +215,7 @@ body {
     padding: 5px;
     margin: 15px auto;
   }
-  .registration-form p {
+  .form-para {
     margin-top: 50px;
   }
   .left-part img{

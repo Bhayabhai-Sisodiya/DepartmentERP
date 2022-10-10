@@ -27,6 +27,16 @@ const Tours = () => {
         console.log(query);
     }
 
+    //handel delete
+    const handleDelete=async (item)=>{
+        const newData = {"id":item}
+        const result=await axios.post("http://localhost:5000/delete_study_tour", newData,{
+          headers:{"x-auth-token":localStorage.getItem("Token")}
+        });
+        const uiData=Data.filter(i=>i._id !==item);
+        setData(uiData);
+    }
+
     const handleSubmit =async (e)=> {
             
         const newData={
@@ -53,7 +63,9 @@ const Tours = () => {
     }
 
     const clearform = () => {
-        setTour("");
+        setTour({
+            date:"",faculty_name:"", place:"",no_of_student:""
+        });
     }
 
     //fetching data from the database
@@ -85,6 +97,7 @@ const Tours = () => {
             {/* add new button */}
             <div className='add-btn'>
                 <button className='btn' onClick={() =>{setShow(true);clearform()}}><span><AiOutlinePlus /></span>add new</button>
+                <button className='btn upload-excel'><span><AiOutlinePlus /></span>upload excel file</button>
             </div>
 
             <div className='table-show-outer-box'>
@@ -96,6 +109,7 @@ const Tours = () => {
                     <th>tour guide</th>
                     <th>place</th>
                     <th>number of student</th>
+                    <th>edit</th>
                 </tr>
                   {filtered.map((item, i) => (
                     <tr key={i}>
@@ -103,6 +117,10 @@ const Tours = () => {
                         <td>{item.faculty_name}</td>
                         <td>{item.place}</td>
                         <td>{item.no_of_students}</td>
+                        <td>
+                                <button onClick={()=>handleDelete(item._id)} className=''>Delete</button>
+                                {/* <button onClick={()=>handleDelete(item._id)} className=''>update</button> */}
+                                </td>
                     </tr>
                 ))}  
             </table>
@@ -130,7 +148,7 @@ const Tours = () => {
 
             
                 <div className='input-field'>
-                    <input onChange={handleChange} name="date" type='text' value={Tour.date} placeholder='date'/>
+                    <input onChange={handleChange} name="date" type='date' value={Tour.date} />
                 </div>
                 <div className='input-field'>
                     <input onChange={handleChange} name="faculty_name" type='text' value={Tour.faculty_name} placeholder='tour guide'/>

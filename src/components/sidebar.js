@@ -37,6 +37,7 @@ const Sidebar = (props) => {
 
     // change category onclick the list item
     const onChangeCategory=async (category)=>{
+        console.log(category)
         props.onChangeCategory(category);
     };
 
@@ -58,4 +59,5 @@ const Sidebar = (props) => {
  
 export default Sidebar
 
-const categories = ['profile','papers','event organized','grants','event attended','book publication','patents','phd completed','research projects','study tours','consultancy work','expert talk']
+// const categories = ['profile','papers','event organized','grants','event attended','book publication','patents','qualification','research projects','study tours','consultancy work','outside interaction']
+const categories = ['profile','papers','event organized','grants','event attended','book publication','patents','qualification','study tours','consultancy work','outside interaction']

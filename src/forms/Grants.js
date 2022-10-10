@@ -12,7 +12,7 @@ import Searchbar from '../components/searchbar';
 const Grants = () => {
     
     const [Grant, setGrant] = useState({
-        coordinator:"", project_title:"",funding_agency:"",amount:""
+        type:"grant",coordinator:"", project_title:"",start_date:"",end_date:"",funding_agency:"",amount:"",approval_letter:"",completion_letter:"",
     });
 
     const componentRef = useRef();
@@ -32,12 +32,27 @@ const Grants = () => {
         console.log(query);
     }
 
+    //handel delete
+    const handleDelete=async (item)=>{
+        const newData = {"id":item}
+        const result=await axios.post("http://localhost:5000/delete_grant", newData,{
+          headers:{"x-auth-token":localStorage.getItem("Token")}
+        });
+        const uiData=Data.filter(i=>i._id !==item);
+        setData(uiData);
+    }
+
     const handleSubmit =async (e)=> {
         const newData = {
+            "type":Grant.type,
             "cordinator":Grant.coordinator, 
-            "project_title":Grant.project_title,            
+            "project_title":Grant.project_title,
+            "start_date":Grant.start_date,
+            "end_date":Grant.end_date,            
             "funding_agency":Grant.funding_agency,            
-            "amount":Grant.amount
+            "amount":Grant.amount,
+            "approval_letter":Grant.approval_letter,
+            "completion_letter":Grant.completion_letter,
       }
         const result=await axios.post("http://localhost:5000/addgrant",newData ,{
           
@@ -56,7 +71,9 @@ const Grants = () => {
     }
 
     const clearform = () => {
-        setGrant("");
+        setGrant({
+            type:"grant",coordinator:"", project_title:"",start_date:"",end_date:"",funding_agency:"",amount:"",approval_letter:"",completion_letter:"",
+        });
     }
     //fetching data from the database
     const [Data,setData]=useState([]);
@@ -86,6 +103,7 @@ const Grants = () => {
             {/* add new button */}
             <div className='add-btn'>
                 <button className='btn' onClick={() =>{setShow(true);clearform()}}><span><AiOutlinePlus /></span>add new</button>
+                <button className='btn upload-excel'><span><AiOutlinePlus /></span>upload excel file</button>
             </div>
 
             {/* showing the fetched data */}
@@ -94,17 +112,32 @@ const Grants = () => {
                 <h2>grants</h2>
                     <table>
                         <tr>
+                            <th>grant/research</th>
                             <th>coordinator</th>
                             <th>project title</th>
+                            <th>start date</th>
+                            <th>end date</th>
                             <th>funding agency</th>
                             <th>amount</th>
+                            <th>approval letter</th>
+                            <th>completion letter</th>
+                            <th>edit</th>
                         </tr>                      
                         {filtered.map((item, i) => (
                             <tr key={i}>
+                                <td>{item.type}</td>
                                 <td>{item.cordinator}</td>
                                 <td>{item.project_title}</td>
+                                <td>{item.start_date}</td>
+                                <td>{item.end_date}</td>
                                 <td>{item.funding_agency[0]}</td>
                                 <td>{item.amount}</td>
+                                <td>{item.approval_letter}</td>
+                                <td>{item.completion_letter}</td>
+                                <td>
+                                <button onClick={()=>handleDelete(item._id)} className=''>Delete</button>
+                                {/* <button onClick={()=>handleDelete(item._id)} className=''>update</button> */}
+                                </td>
                             </tr>
                         ))}  
                     </table>
@@ -121,12 +154,19 @@ const Grants = () => {
                 />             </div>
 
             {/* add Grant details */}
-            {Show?<div className='forms'>
+            {Show?<div className='forms grant-form'>
                 <div className='form-header'>
                     <h3>grant details</h3>
                     <div className='close-btn' onClick={() =>setShow(false)}>
                         <AiOutlineClose/>
                     </div>
+                </div>
+                <div className='input-field'>
+                    <p className='input-title'>choose a type:</p>
+                    <select onChange={handleChange} name='type1' value={Grant.type} className='select-options'>
+                        <option value="national">grant</option>
+                        <option value="international">research project</option>
+                    </select>
                 </div>
                 <div className='input-field'>
                     <input type='text' onChange={handleChange} value={Grant.coordinator} name='coordinator' placeholder='coordinator'/>
@@ -135,12 +175,25 @@ const Grants = () => {
                     <input type='text' onChange={handleChange} value={Grant.project_title} name='project_title' placeholder='project title'/>
                 </div>
                 <div className='input-field'>
+                    <input type='date' onChange={handleChange} name='start_date' value={Grant.start_date} placeholder='start date'/>
+                </div>
+                <div className='input-field'>
+                    <input type='date' onChange={handleChange} name='end_date' value={Grant.end_date} placeholder='end date'/>
+                </div>
+                <div className='input-field'>
                     <input type='text' onChange={handleChange} value={Grant.funding_agency} name='funding_agency' placeholder='funding agency'/>
                 </div>
                 <div className='input-field'>
                     <input type='text' onChange={handleChange} value={Grant.amount} name='amount' placeholder='amount'/>
                 </div>
-                
+                <div className='input-field file-input'>
+                    <p className='input-title'>add a approval letter:</p>
+                    <input type='file' onChange={handleChange} name='approval_letter' value={Grant.approval_letter}/>
+                </div>
+                <div className='input-field file-input'>
+                    <p className='input-title'>add a completion letter:</p>
+                    <input type='file' onChange={handleChange} name='completion_letter' value={Grant.completion_letter}/>
+                </div>
                 <div className='submit'>
                     <button onClick={handleSubmit} className="btn" type="submit">Submit</button>
                 </div>

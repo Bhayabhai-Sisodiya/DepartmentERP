@@ -10,7 +10,7 @@ import ReactToPrint from 'react-to-print';
 
 const Events = () => {
     const [Event, setEvent] = useState({
-        type:"Seminar", cordinator:"",title:"",start_date:"",end_date:"",no_of_participants:"",sponsor:"",for_whome:"Faculties",report:""
+        type:"Seminar", cordinator:"",title:"",start_date:"",end_date:"",cost:"",no_of_participants:"",sponsor:"",for_whome:"Faculties",report:"",approval_letter:"",attendance_sheet:"",photos:""
     });
 
     const componentRef = useRef();
@@ -31,6 +31,16 @@ const Events = () => {
         console.log(query);
     }
 
+    //handel delete
+    const handleDelete=async (item)=>{
+        const newData = {"id":item}
+        const result=await axios.post("http://localhost:5000/delete_event", newData,{
+          headers:{"x-auth-token":localStorage.getItem("Token")}
+        });
+        const uiData=Data.filter(i=>i._id !==item);
+        setData(uiData);
+    }
+
     const handleSubmit =async (e)=> {
         const newData = {
             "type":Event.type, 
@@ -38,11 +48,16 @@ const Events = () => {
             "title":Event.title,
             "start_date":Event.start_date,
             "end_date":Event.end_date,
+            "cost":Event.cost,
             "no_of_participants":Event.no_of_participants,
             "sponsor":Event.sponsor,
             "for_whome":Event.for_whome,
-            "report":Event.report
+            "report":Event.report,
+            "approval_letter":Event.approval_letter,
+            "attendance_sheet":Event.attendance_sheet,
+            "photos":Event.photos,
       }
+
         const result=await axios.post("http://localhost:5000/addevent", newData,{
           
           headers:{"x-auth-token":localStorage.getItem("Token")}
@@ -60,7 +75,9 @@ const Events = () => {
     }
 
     const clearform = () => {
-        setEvent("");
+        setEvent({
+            type:"Seminar", cordinator:"",title:"",start_date:"",end_date:"",cost:"",no_of_participants:"",sponsor:"",for_whome:"Faculties",report:"",approval_letter:"",attendance_sheet:"",photos:""
+        });
     }
 
     //fetching data from the database
@@ -92,6 +109,7 @@ const Events = () => {
             {/* add new button */}
             <div className='add-btn'>
                 <button className='btn' onClick={() =>{setShow(true);clearform()}}><span><AiOutlinePlus /></span>add new</button>
+                <button className='btn upload-excel'><span><AiOutlinePlus /></span>upload excel file</button>
             </div>
 
             {/* showing the fetched data */}
@@ -105,10 +123,15 @@ const Events = () => {
                             <th>title</th>
                             <th>start date</th>
                             <th>end date</th>
+                            <th>cost(expenses)</th>
                             <th>number of participants</th>
                             <th>sponsors</th>
-                            <th>for whom</th>
+                            <th>audience</th>
                             <th>report</th>
+                            <th>approval letter</th>
+                            <th>attendance sheet</th>
+                            <th>photos</th>
+                            <th>edit</th>
                         </tr>                      
                         {filtered.map((item, i) => (
                             <tr key={i}>
@@ -117,10 +140,18 @@ const Events = () => {
                                 <td>{item.title}</td>
                                 <td>{item.start_date}</td>
                                 <td>{item.end_date}</td>
+                                <td>{item.cost}</td>
                                 <td>{item.no_of_participants}</td>
                                 <td>{item.sponsor[0]}</td>
                                 <td>{item.for_whome}</td>
                                 <td>{item.report}</td>
+                                <td>{item.approval_letter}</td>
+                                <td>{item.attendance_sheet}</td>
+                                <td>{item.photos}</td>
+                                <td>
+                                <button onClick={()=>handleDelete(item._id)} className=''>Delete</button>
+                                {/* <button onClick={()=>handleDelete(item._id)} className=''>update</button> */}
+                                </td>
                             </tr>
                         ))}  
                     </table>
@@ -162,10 +193,13 @@ const Events = () => {
                     <input type='text' onChange={handleChange} name='cordinator' value={Event.cordinator} placeholder='coordinator'/>
                 </div>
                 <div className='input-field'>
-                    <input type='text' onChange={handleChange} name='start_date' value={Event.start_date} placeholder='start date'/>
+                    <input type='date' onChange={handleChange} name='start_date' value={Event.start_date} placeholder='start date'/>
                 </div>
                 <div className='input-field'>
-                    <input type='text' onChange={handleChange} name='end_date' value={Event.end_date} placeholder='end date'/>
+                    <input type='date' onChange={handleChange} name='end_date' value={Event.end_date} placeholder='end date'/>
+                </div>
+                <div className='input-field'>
+                    <input type='text' onChange={handleChange} name='cost' value={Event.cost} placeholder='cost (expenses)'/>
                 </div>
                 <div className='input-field'>
                     <input type='text' onChange={handleChange} name='no_of_participants' value={Event.no_of_participants} placeholder='number of participants'/>
@@ -184,6 +218,19 @@ const Events = () => {
                     <p className='input-title'>add a report:</p>
                     <input type='file' onChange={handleChange} name='report' value={Event.report}/>
                 </div>
+                <div className='input-field file-input'>
+                    <p className='input-title'>add a approval letter:</p>
+                    <input type='file' onChange={handleChange} name='report' value={Event.approval_letter}/>
+                </div>
+                <div className='input-field file-input'>
+                    <p className='input-title'>add a attendance sheet:</p>
+                    <input type='file' onChange={handleChange} name='report' value={Event.attendance_sheet}/>
+                </div>
+                <div className='input-field file-input'>
+                    <p className='input-title'>add a photos:</p>
+                    <input type='file' onChange={handleChange} name='report' value={Event.photos}/>
+                </div>
+
                 <div className='submit'>
                     <button onClick={handleSubmit} className="btn" type="submit">Submit</button>
                 </div>

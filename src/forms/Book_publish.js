@@ -11,7 +11,7 @@ import ReactToPrint from 'react-to-print';
 
 const Book_publish = () => {
     const [Book, setBook] = useState({
-        title:"",author:"",co_author:"",publisher:"",ISBN:""
+        title:"",author:"",co_author:"",publication_date:"",publisher:"",ISBN:""
     });
 
     const componentRef = useRef();
@@ -31,11 +31,22 @@ const Book_publish = () => {
         console.log(query);
     }
 
+    //handel delete
+    const handleDelete=async (item)=>{
+        const newData = {"id":item}
+        const result=await axios.post("http://localhost:5000/delete_book", newData,{
+          headers:{"x-auth-token":localStorage.getItem("Token")}
+        });
+        const uiData=Data.filter(i=>i._id !==item);
+        setData(uiData);
+    }
+
     const handleSubmit =async (e)=> {
         const newData = {
             "title":Book.title, 
             "author":Book.author,
             "co_author":Book.co_author,
+            "publication_date":Book.publication_date,
             "publisher":Book.publisher,
             "ISBN":Book.ISBN
       }
@@ -55,7 +66,9 @@ const Book_publish = () => {
         }
     }
     const clearform = () => {
-        setBook("");
+        setBook({
+            title:"",author:"",co_author:"",publication_date:"",publisher:"",ISBN:""
+        });
     }
 
     //fetching data from the database
@@ -85,6 +98,7 @@ const Book_publish = () => {
             {/* add new button */}
             <div className='add-btn'>
                 <button className='btn' onClick={() =>{setShow(true);clearform()}}><span><AiOutlinePlus /></span>add new</button>
+                <button className='btn upload-excel'><span><AiOutlinePlus /></span>upload excel file</button>
             </div>
 
             {/* showing the fetched data */}
@@ -96,16 +110,23 @@ const Book_publish = () => {
                             <th>book title</th>
                             <th>author</th>
                             <th>co author</th>
+                            <th>publication date</th>
                             <th>publisher</th>
                             <th>ISBN</th>
+                            <th>edit</th>
                         </tr>                      
                         {filtered.map((item, i) => (
                             <tr key={i}>
                                 <td>{item.title}</td>
                                 <td>{item.author}</td>
                                 <td>{item.co_author[0]}</td>
+                                <td>{item.publication_date}</td>
                                 <td>{item.publisher}</td>
                                 <td>{item.ISBN}</td>
+                                <td>
+                                <button onClick={()=>handleDelete(item._id)} className=''>Delete</button>
+                                {/* <button onClick={()=>handleDelete(item._id)} className=''>update</button> */}
+                                </td>
                             </tr>
                         ))}  
                     </table>
@@ -137,6 +158,9 @@ const Book_publish = () => {
                 </div>
                 <div className='input-field'>
                     <input type='text' onChange={handleChange} name='co_author' value={Book.co_author} placeholder='co author'/>
+                </div>
+                <div className='input-field'>
+                    <input type='date' onChange={handleChange} name='publication_date' value={Book.publication_date} placeholder='publication date'/>
                 </div>
                 <div className='input-field'>
                     <input type='text' onChange={handleChange} name='publisher' value={Book.publisher} placeholder='publisher'/>

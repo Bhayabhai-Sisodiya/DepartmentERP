@@ -31,6 +31,16 @@ const Patents = () => {
         console.log(query);
     }
 
+    //handel delete
+    const handleDelete=async (item)=>{
+        const newData = {"id":item}
+        const result=await axios.post("http://localhost:5000/delete_patent", newData,{
+          headers:{"x-auth-token":localStorage.getItem("Token")}
+        });
+        const uiData=Data.filter(i=>i._id !==item);
+        setData(uiData);
+    }
+
     const handleSubmit =async (e)=> {
             
         //console.log(Token);
@@ -59,7 +69,9 @@ const Patents = () => {
     }
 
     const clearform = () => {
-        setPatent("");
+        setPatent({
+            faculty:"", title:"",application_no:"",date:"",status:""
+        });
     }
 
     //fetching data from the database
@@ -89,6 +101,8 @@ const Patents = () => {
             {/* add new button */}
             <div className='add-btn'>
                 <button className='btn' onClick={() =>{setShow(true);clearform()}}><span><AiOutlinePlus /></span>add new</button>
+                <button className='btn upload-excel'><span><AiOutlinePlus /></span>upload excel file</button>
+
             </div>
 
             <div className='table-show-outer-box'>
@@ -101,6 +115,7 @@ const Patents = () => {
                     <th>Application no</th>
                     <th>date</th>
                     <th>Status</th>
+                    <th>edit</th>
                 </tr>
                   {filtered.map((item, i) => (
                     <tr key={i}>
@@ -109,6 +124,10 @@ const Patents = () => {
                         <td>{item.application_no}</td>
                         <td>{item.date}</td>
                         <td>{item.status}</td>
+                        <td>
+                                <button onClick={()=>handleDelete(item._id)} className=''>Delete</button>
+                                {/* <button onClick={()=>handleDelete(item._id)} className=''>update</button> */}
+                                </td>
                     </tr>
                 ))}  
             </table>
@@ -143,7 +162,7 @@ const Patents = () => {
                     <input onChange={handleChange} type='text' name='application_no' value={Patent.application_no} placeholder='application number'/>
                 </div>
                 <div className='input-field'>
-                    <input onChange={handleChange} type='text' name='date' value={Patent.date} placeholder='date'/>
+                    <input onChange={handleChange} type='date' name='date' value={Patent.date} placeholder='date'/>
                 </div>
                 <div className='input-field'>
                     <input onChange={handleChange} type='text' name='status' value={Patent.status} placeholder='published/registration/awarded/other'/>

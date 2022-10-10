@@ -58,31 +58,11 @@ export default function Form() {
 
   const handleSubmit = async (e) => {
     if (password != "" && password == conpass) {
-      /*const { err } = validation(email, password, conpass);
-      if (err) {
-        alert("Please entered email or password correctly");
-        return;
-      }
-      else {*/
-        //setSubmitted(true);
         console.log(email);
         const res=await axios.post("http://localhost:5000/registration", {
         username: email,
         password: password,
       }); 
-
-        /* const res = await fetch("http://localhost:5000/registration", {
-
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-
-            "username": email,
-            "password": password
-          })
-        }) */
       
         console.log(res);
         console.log(res.status);
@@ -98,11 +78,7 @@ export default function Form() {
         else{
           window.alert("Registration Successfull , wait for day or two for admin's approval");
           console.log("Registration Successfull");
-         // navigate('/login');
         }
-        
-
-     // }
 
     }
     else {
@@ -152,9 +128,19 @@ export default function Form() {
           <img src={pic} alt='Registration image'></img>
         </div>
         <div className='right-part'>
-          <h1 className='form-heading'>Faculty Registration</h1>
+          <h1 className='form-heading'>User Registration</h1>
           <div className='registration-form'>
             {/* <form onSubmit={handleSubmit} method="POST"> */}
+
+              <div className='radio-detail'>
+              <h3 className='user-type'>user type</h3>
+              <div className='radio-btn'>
+              <div className='btn'>
+                <input onChange={handleEmail} className="input" name='user' value="faculty" type="radio" required/><p>faculty</p></div>
+              <div className='btn'>  
+                <input onChange={handleEmail} className="input" name='user' value="admin" type="radio" required/><p>admin</p></div>
+              </div>
+              </div>
               <div className='input-detail'>
                 <BsEnvelopeFill/>
                 <input onChange={handleEmail} className="input" value={email} type="email" placeholder='Email' required/>
@@ -174,7 +160,7 @@ export default function Form() {
               <button onClick={handleSubmit} className="btn" type="submit">Submit</button>
               </div>
             {/* </form> */}
-            <p>Already have an account? <Link to='/login'>Login Here.</Link></p>
+            <p className='form-para'>Already have an account? <Link to='/login'>Login Here.</Link></p>
           </div>
         </div>
       </div>

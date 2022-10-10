@@ -31,6 +31,16 @@ const Researches = () => {
         console.log(query);
     }
 
+    //handel delete
+    const handleDelete=async (item)=>{
+        const newData = {"id":item}
+        const result=await axios.post("http://localhost:5000/delete_research_de", newData,{
+          headers:{"x-auth-token":localStorage.getItem("Token")}
+        });
+        const uiData=Data.filter(i=>i._id !==item);
+        setData(uiData);
+    }
+
     const handleSubmit =async (e)=> {
         const newData = {
             "cordinator":Research.cordinator, 
@@ -56,7 +66,9 @@ const Researches = () => {
     }
 
     const clearform = () => {
-        setResearch("");
+        setResearch({
+            cordinator:"",title:"",funding_agency:"",amount:"",date:""
+         });
     }
 
     //fetching data from the database
@@ -86,6 +98,8 @@ const Researches = () => {
             {/* add new button */}
             <div className='add-btn'>
                 <button className='btn' onClick={() =>{setShow(true);clearform()}}><span><AiOutlinePlus /></span>add new</button>
+                <button className='btn upload-excel'><span><AiOutlinePlus /></span>upload excel file</button>
+
             </div>
 
             {/* showing the fetched data */}
@@ -99,6 +113,7 @@ const Researches = () => {
                             <th>funding agency</th>
                             <th>amount</th>
                             <th>date</th>
+                            <th>edit</th>
                         </tr>                      
                         {filtered.map((item, i) => (
                             <tr key={i}>
@@ -107,6 +122,10 @@ const Researches = () => {
                                 <td>{item.funding_agency[0]}</td>
                                 <td>{item.amount}</td>
                                 <td>{item.date}</td>
+                                <td>
+                                <button onClick={()=>handleDelete(item._id)} className=''>Delete</button>
+                                {/* <button onClick={()=>handleDelete(item._id)} className=''>update</button> */}
+                                </td>
                             </tr>
                         ))}  
                     </table>
@@ -143,7 +162,7 @@ const Researches = () => {
                     <input type='text' onChange={handleChange} name='amount' value={Research.amount} placeholder='amount'/>
                 </div>
                 <div className='input-field'>
-                    <input type='text' onChange={handleChange} name='date' value={Research.date} placeholder='date'/>
+                    <input type='date' onChange={handleChange} name='date' value={Research.date} placeholder='date'/>
                 </div>
                 
                 <div className='submit'>

@@ -10,7 +10,7 @@ import Searchbar from '../components/searchbar';
 
 const Phds = () => {
     const [Phd, setPhd] = useState({
-        title:"",date_of_completion:"",institute:""
+        title:"B. Tech",date_of_completion:"",institute:""
     });
     
     const componentRef = useRef();
@@ -29,6 +29,16 @@ const Phds = () => {
     const handleSearch=(query)=>{
         setSearchQuery(query);
         console.log(query);
+    }
+
+    //handel delete
+    const handleDelete=async (item)=>{
+        const newData = {"id":item}
+        const result=await axios.post("http://localhost:5000/delete_phd", newData,{
+          headers:{"x-auth-token":localStorage.getItem("Token")}
+        });
+        const uiData=Data.filter(i=>i._id !==item);
+        setData(uiData);
     }
 
     const handleSubmit =async (e)=> {
@@ -54,7 +64,9 @@ const Phds = () => {
     }
 
     const clearform = () => {
-        setPhd("");
+        setPhd({
+            title:"B. Tech",date_of_completion:"",institute:""
+        });
     }
 
     //fetching data from the database
@@ -85,6 +97,8 @@ const Phds = () => {
             {/* add new button */}
             <div className='add-btn'>
                 <button className='btn' onClick={() =>{setShow(true);clearform()}}><span><AiOutlinePlus /></span>add new</button>
+                <button className='btn upload-excel'><span><AiOutlinePlus /></span>upload excel file</button>
+
             </div>
 
             {/* showing the fetched data */}
@@ -93,15 +107,20 @@ const Phds = () => {
                 <h2>Phd completed</h2>
                     <table>
                         <tr>
-                            <th>title</th>
+                            <th>degree</th>
                             <th>date of completion</th>
                             <th>institute</th>
+                            <th>edit</th>
                         </tr>                      
                         {filtered.map((item, i) => (
                             <tr key={i}>
                                 <td>{item.title}</td>
                                 <td>{item.date_of_completion}</td>
                                 <td>{item.institute}</td>
+                                <td>
+                                <button onClick={()=>handleDelete(item._id)} className=''>Delete</button>
+                                {/* <button onClick={()=>handleDelete(item._id)} className=''>update</button> */}
+                                </td>
                             </tr>
                         ))}  
                     </table>
@@ -125,10 +144,15 @@ const Phds = () => {
                     </div>
                 </div>
                 <div className='input-field'>
-                    <input type='text' onChange={handleChange} name='title' value={Phd.title} placeholder='Paper Title'/>
+                    <p className='input-title'>choose a type:</p>
+                    <select name='type' onChange={handleChange} value={Phd.type} className='select-options'>
+                        <option value="Seminar">B. Tech</option>
+                        <option value="Workshop">M. Tech</option>
+                        <option value="Conference">Phd</option>
+                    </select>
                 </div>
                 <div className='input-field'>
-                    <input type='text' onChange={handleChange} name='date_of_completion' value={Phd.date_of_completion} placeholder='date of completion'/>
+                    <input type='date' onChange={handleChange} name='date_of_completion' value={Phd.date_of_completion} placeholder='date of completion'/>
                 </div>
                 <div className='input-field'>
                     <input type='text' onChange={handleChange} name='institute' value={Phd.institute} placeholder='institute name '/>
