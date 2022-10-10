@@ -37,6 +37,20 @@ const Expert_talks = () => {
         setData(uiData);
     }
 
+    //handle update
+    const handleUpdate=async (item)=>{
+        let newData = {
+            "title_talk":item.title_talk,
+            "faculty_name":item.faculty_name, 
+            "title_program":item.title_program,
+            "date":item.date,
+            "vanue":item.vanue
+    }
+    setTalks(newData);
+    setShow(true);
+
+    }
+
     const handleSubmit =async (e)=> {
             
         const newData={
@@ -104,7 +118,7 @@ const Expert_talks = () => {
 
             <div className='table-show-outer-box'>
                 <div ref={componentRef} className='showData' id='PrintData'>
-                <h2>expert talk</h2>
+                <h2>outside interactions</h2>
             <table>
                 <tr>
                     <th>title talk</th>
@@ -123,8 +137,8 @@ const Expert_talks = () => {
                         <td>{item.vanue}</td>
                         <td>
                             <button onClick={()=>handleDelete(item._id)} className=''>Delete</button>
-                            {/* <button onClick={()=>handleDelete(item._id)} className=''>update</button> */}
-                            </td>
+                            <button onClick={()=>{handleDelete(item._id);handleUpdate(item) }} >Update</button>
+                        </td>
                     </tr>
                 ))}  
             </table>

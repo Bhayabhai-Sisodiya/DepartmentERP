@@ -67,6 +67,15 @@ td{
     vertical-align: top;
     background-color: #f2f2f2;
 }
+td:last-child{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+td:last-child button{
+    margin: 5px 0;
+}
 
 .download-btn{
     position: absolute;

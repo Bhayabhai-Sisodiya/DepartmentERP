@@ -37,6 +37,19 @@ const Tours = () => {
         setData(uiData);
     }
 
+    //handle update
+    const handleUpdate=async (item)=>{
+        let newData = {
+            "date":item.date,
+            "faculty_name":item.faculty_name, 
+            "place":item.place,
+            "no_of_students":item.no_of_student
+    }
+    setTour(newData);
+    setShow(true);
+
+    }
+
     const handleSubmit =async (e)=> {
             
         const newData={
@@ -119,7 +132,7 @@ const Tours = () => {
                         <td>{item.no_of_students}</td>
                         <td>
                                 <button onClick={()=>handleDelete(item._id)} className=''>Delete</button>
-                                {/* <button onClick={()=>handleDelete(item._id)} className=''>update</button> */}
+                                <button onClick={()=>{handleDelete(item._id);handleUpdate(item) }} >Update</button>
                                 </td>
                     </tr>
                 ))}  

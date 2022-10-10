@@ -42,6 +42,24 @@ const Grants = () => {
         setData(uiData);
     }
 
+    //handle update
+    const handleUpdate=async (item)=>{
+        let newData = {
+            "type":item.type,
+            "cordinator":item.coordinator, 
+            "project_title":item.project_title,
+            "start_date":item.start_date,
+            "end_date":item.end_date,            
+            "funding_agency":item.funding_agency,            
+            "amount":item.amount,
+            "approval_letter":item.approval_letter,
+            "completion_letter":item.completion_letter,
+    }
+    setGrant(newData);
+    setShow(true);
+
+    }
+
     const handleSubmit =async (e)=> {
         const newData = {
             "type":Grant.type,
@@ -136,7 +154,7 @@ const Grants = () => {
                                 <td>{item.completion_letter}</td>
                                 <td>
                                 <button onClick={()=>handleDelete(item._id)} className=''>Delete</button>
-                                {/* <button onClick={()=>handleDelete(item._id)} className=''>update</button> */}
+                                <button onClick={()=>{handleDelete(item._id);handleUpdate(item) }} >Update</button>
                                 </td>
                             </tr>
                         ))}  

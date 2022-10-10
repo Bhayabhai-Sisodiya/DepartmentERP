@@ -41,6 +41,21 @@ const Book_publish = () => {
         setData(uiData);
     }
 
+    //handle update
+    const handleUpdate=async (item)=>{
+        let newData = {
+            "title":item.title, 
+            "author":item.author,
+            "co_author":item.co_author,
+            "publication_date":item.publication_date,
+            "publisher":item.publisher,
+            "ISBN":item.ISBN
+    }
+    setBook(newData);
+    setShow(true);
+
+    }
+
     const handleSubmit =async (e)=> {
         const newData = {
             "title":Book.title, 
@@ -125,7 +140,7 @@ const Book_publish = () => {
                                 <td>{item.ISBN}</td>
                                 <td>
                                 <button onClick={()=>handleDelete(item._id)} className=''>Delete</button>
-                                {/* <button onClick={()=>handleDelete(item._id)} className=''>update</button> */}
+                                <button onClick={()=>{handleDelete(item._id);handleUpdate(item) }} >Update</button>
                                 </td>
                             </tr>
                         ))}  

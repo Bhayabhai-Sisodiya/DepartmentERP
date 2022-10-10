@@ -41,6 +41,28 @@ const Events = () => {
         setData(uiData);
     }
 
+    //handle update
+    const handleUpdate=async (item)=>{
+        let newData = {
+            "type":item.type, 
+            "cordinator":item.cordinator,
+            "title":item.title,
+            "start_date":item.start_date,
+            "end_date":item.end_date,
+            "cost":item.cost,
+            "no_of_participants":item.no_of_participants,
+            "sponsor":item.sponsor,
+            "for_whome":item.for_whome,
+            "report":item.report,
+            "approval_letter":item.approval_letter,
+            "attendance_sheet":item.attendance_sheet,
+            "photos":item.photos,
+    }
+    setEvent(newData);
+    setShow(true);
+
+    }
+    
     const handleSubmit =async (e)=> {
         const newData = {
             "type":Event.type, 
@@ -150,7 +172,7 @@ const Events = () => {
                                 <td>{item.photos}</td>
                                 <td>
                                 <button onClick={()=>handleDelete(item._id)} className=''>Delete</button>
-                                {/* <button onClick={()=>handleDelete(item._id)} className=''>update</button> */}
+                                <button onClick={()=>{handleDelete(item._id);handleUpdate(item) }} >Update</button>
                                 </td>
                             </tr>
                         ))}  

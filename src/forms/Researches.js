@@ -41,6 +41,21 @@ const Researches = () => {
         setData(uiData);
     }
 
+
+    //handle update
+    const handleUpdate=async (item)=>{
+        let newData = {
+            "cordinator":item.cordinator, 
+            "title":item.title,            
+            "funding_agency":item.funding_agency,            
+            "amount":item.amount,
+            "date":item.date, 
+    }
+    setResearch(newData);
+    setShow(true);
+
+    }
+
     const handleSubmit =async (e)=> {
         const newData = {
             "cordinator":Research.cordinator, 
@@ -124,7 +139,7 @@ const Researches = () => {
                                 <td>{item.date}</td>
                                 <td>
                                 <button onClick={()=>handleDelete(item._id)} className=''>Delete</button>
-                                {/* <button onClick={()=>handleDelete(item._id)} className=''>update</button> */}
+                                <button onClick={()=>{handleDelete(item._id);handleUpdate(item) }} >Update</button>
                                 </td>
                             </tr>
                         ))}  

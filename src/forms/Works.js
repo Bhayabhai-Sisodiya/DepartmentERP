@@ -38,6 +38,20 @@ const Works = () => {
         setData(uiData);
     }
 
+
+    //handle update
+    const handleUpdate=async (item)=>{
+        let newData = {
+            "details":item.detail, 
+            "client":item.client,
+            "cost":item.cost,
+            "faculty_involved":item.faculty_involved
+    }
+    setWork(newData);
+    setShow(true);
+
+    }
+
     const handleSubmit =async (e)=> {
             
         const newData={
@@ -121,7 +135,7 @@ const Works = () => {
                         <td>{item.faculty_involved}</td>
                         <td>
                             <button onClick={()=>handleDelete(item._id)} className=''>Delete</button>
-                            {/* <button onClick={()=>handleDelete(item._id)} className=''>update</button> */}
+                            <button onClick={()=>{handleDelete(item._id);handleUpdate(item) }} >Update</button>
                         </td>
                     </tr>
                 ))}  

@@ -40,6 +40,24 @@ const Workshops = () => {
         const uiData=Data.filter(i=>i._id !==item);
         setData(uiData);
     }
+
+    //handle update
+    const handleUpdate=async (item)=>{
+        let newData = {
+            "start_date":item.start_date, 
+            "end_date":item.end_date,            
+            "expert":item.expert,            
+            "title":item.title,
+            "type":item.type,            
+            "funding_agency":item.funding_agency,
+            "certificate":item.certificate,
+            "report":item.report,
+    }
+    setWorkshop(newData);
+    setShow(true);
+
+    }
+
     const handleSubmit =async (e)=> {
         const newData = {
             "start_date":Workshop.start_date, 
@@ -130,7 +148,7 @@ const Workshops = () => {
                                 <td>{item.report}</td>
                                 <td>
                                 <button onClick={()=>handleDelete(item._id)} className=''>Delete</button>
-                                {/* <button onClick={()=>handleDelete(item._id)} className=''>update</button> */}
+                                <button onClick={()=>{handleDelete(item._id);handleUpdate(item) }} >Update</button>
                                 </td>
                             </tr>
                         ))}  

@@ -41,6 +41,20 @@ const Patents = () => {
         setData(uiData);
     }
 
+    //handle update
+    const handleUpdate=async (item)=>{
+        let newData = {
+            "faculty":item.faculty[0], 
+            "title":item.title,
+            "application_no":item.application_no,
+            "date":item.date,
+            "status":item.status
+    }
+    setPatent(newData);
+    setShow(true);
+
+    }
+
     const handleSubmit =async (e)=> {
             
         //console.log(Token);
@@ -126,7 +140,7 @@ const Patents = () => {
                         <td>{item.status}</td>
                         <td>
                                 <button onClick={()=>handleDelete(item._id)} className=''>Delete</button>
-                                {/* <button onClick={()=>handleDelete(item._id)} className=''>update</button> */}
+                                <button onClick={()=>{handleDelete(item._id);handleUpdate(item) }} >Update</button>
                                 </td>
                     </tr>
                 ))}  
