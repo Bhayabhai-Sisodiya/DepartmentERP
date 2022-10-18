@@ -20,6 +20,11 @@ const Papers = () => {
     //onclick add new button - show form
     const [Show,setShow] = useState(false) ;
 
+    const [ShowDropDown,setShowDropDown] = useState(false) ;
+    const handleDropdown=()=>{
+        setShowDropDown(!ShowDropDown)
+    }   
+
     // function for changing the states
     const handleChange = (e) => {
         setPaper({...Paper,[e.target.name]:e.target.value});
@@ -239,15 +244,42 @@ const Papers = () => {
                 </div>
 
                 {/* print button  */}
+                
 
-                <ReactToPrint
+
+                    {ShowDropDown?
+                        <div className='popup-box'>
+                            <div className='close-btn' onClick={() =>setShowDropDown(false)}><AiOutlineClose/></div>
+                            <div className='print-btns'>
+                                <div className='print-btn-to-pdf'>
+                                    <ReactToPrint
+                                        trigger={()=>{
+                                        return <button onClick={() =>{setShowDropDown(false)}} ><HiPrinter/>to pdf</button>
+                                        }}
+                                        content={()=>componentRef.current}
+                                        documentTitle="paper"
+                                        pageStyle="print"
+                                    />
+                                </div>
+                                <div className='print-btn-to-excel'>content2</div>
+                                
+                            </div>  
+                        </div>        
+                    :null} 
+                
+                
+                    <button className='download-btn' onClick={handleDropdown}><HiPrinter/>print </button>
+
+
+                
+                {/* <ReactToPrint
                 trigger={()=>{
-                    return <button className='download-btn' ><HiPrinter/>print </button>
+                    return <button className='download-btn' onClick={handleDropdown}><HiPrinter/>print </button>
                 }}
                 content={()=>componentRef.current}
                 documentTitle="paper"
                 pageStyle="print"
-                />
+                /> */}
             </div>
 
             {/* add paper details */}
@@ -267,47 +299,57 @@ const Papers = () => {
                         <option value="international">international</option>
                     </select>
                 </div>
-                <div className='input-field'>
-                    <input onChange={handleChange} type='text' name='title' value={Paper.title} placeholder='Paper Title'/>
+                <div className='input-grid'>
+                    <div className='input-field'>
+                        <input onChange={handleChange} type='text' name='title' value={Paper.title} placeholder='Paper Title'/>
+                    </div>
+                    <div className='input-field'>
+                    <input onChange={handleChange} type='text' name='author' value={Paper.author} placeholder='author'/>
+                    </div>
                 </div>
-                <div className='input-field'>
-                    <input onChange={handleChange} type='text' name='volume' value={Paper.volume} placeholder='volume'/>
+                <div className='input-grid'>
+                    <div className='input-field'>
+                        <input onChange={handleChange} type='text' name='issue' value={Paper.issue} placeholder='issue'/>
+                    </div>
+                    <div className='input-field'>
+                            <input onChange={handleChange} type='text' name='volume' value={Paper.volume} placeholder='volume'/>
+                    </div>
                 </div>
-                <div className='input-field'>
-                    <input onChange={handleChange} type='text' name='issue' value={Paper.issue} placeholder='issue'/>
-                </div>
-                <div className='input-field'>
+                <div className='input-field file-input'>
+                    <p className='input-title'>paper publication date:</p>
                     <input onChange={handleChange} type='date' name='year' value={Paper.year} placeholder='year'/>
                 </div>
-                <div className='input-field'>
-                    <input onChange={handleChange} type='text' name='author' value={Paper.author} placeholder='author'/>
-                </div>
-                <div className='input-field'>
-                    <p className='input-title'>choose a type:</p>
-                    <select onChange={handleChange} name='type2' value={Paper.type2} className='select-options'>
-                        <option value="conference">conference</option>
-                        <option value="journal">journal</option>
-                    </select>
-                </div>
-                <div className='input-field'>
-                    <p className='input-title'>indexing:</p>
-                    <select onChange={handleChange} name='indexing' value={Paper.indexing} className='select-options'>
-                        <option value="scoops">scopus</option>
-                        <option value="ugc">ugc</option>
-                        <option value="wos">web of science</option>
-                        <option value="other">other</option>
-                    </select>
-                </div>
+                
+                <div className='input-grid'>
+                    <div className='input-field'>
+                        <p className='input-title'>choose a type:</p>
+                        <select onChange={handleChange} name='type2' value={Paper.type2} className='select-options'>
+                            <option value="conference">conference</option>
+                            <option value="journal">journal</option>
+                        </select>
+                    </div>
+                    <div className='input-field'>
+                        <p className='input-title'>indexing:</p>
+                        <select onChange={handleChange} name='indexing' value={Paper.indexing} className='select-options'>
+                            <option value="scoops">scopus</option>
+                            <option value="ugc">ugc</option>
+                            <option value="wos">web of science</option>
+                            <option value="other">other</option>
+                        </select>
+                    </div>
+                </div>    
                 <div className='input-field'>
                     <input onChange={handleChange} type='text' name='ISBN' value={Paper.ISBN} placeholder='ISBN'/>
                 </div>
-                <div className='input-field file-input'>
-                    <p className='input-title'>add a certificate:</p>
-                    <input type='file' onChange={handleChange} name='certificate' value={Paper.certificate}/>
-                </div>
-                <div className='input-field file-input'>
-                    <p className='input-title'>add a paper:</p>
-                    <input type='file' onChange={handleChange} name='paper' value={Paper.paper}/>
+                <div className='input-grid'>
+                    <div className='file-input'>
+                        <p className='input-title'>add a certificate:</p>
+                        <input type='file' onChange={handleChange} name='certificate' value={Paper.certificate}/>
+                    </div>
+                    <div className='file-input'>
+                        <p className='input-title'>add a paper:</p>
+                        <input type='file' onChange={handleChange} name='paper' value={Paper.paper}/>
+                    </div>
                 </div>
                 <div className='submit'>
                     <button onClick={handleSubmit} className="btn" type="submit">Submit</button>

@@ -49,16 +49,19 @@
 }
 .forms{
     position: relative;
-    top: -40%;
+    top: -50%;
     box-shadow: 0 2px 5px rgb(0 0 0 / 16%), 0 2px 10px rgb(0 0 0 / 12%);
     border-radius: .2rem;
     font-size: 1.1rem;
-    width: 90%;
+    width: 80%;
     height: auto;
     padding: .5rem;
     background-color: white;
     transition: .8s;
+    display: flex;
+    flex-direction: column;
 }
+
 
 /*************** paper-form ***************/
 .paper-form {
@@ -68,28 +71,37 @@
 /*************** event-form ***************/
 .event-form {
     top: -100%;
-    /* left: 50%;
-    transform: translate(-60%,-65%); */
 }
 
 /*************** grant-form ***************/
-.grant-form{
+ .grant-form{
     top: -80%;
-}
+} 
 
 
 .input-title{
-    width: auto;
     font-size: 1.2rem;
     color: black;
     text-transform: capitalize;
+    min-width: max-content;
+}
+.input-grid{
+    display: flex;
+    justify-content: flex-start;
 }
 .input-field{
     display: flex;
     margin: .6rem;
     padding: .5rem;
+    width: 100%;
 }
 
+.file-input{
+    display: flex;
+    justify-content: flex-start;
+    margin: .6rem;
+    padding-left: .5rem;
+}
 .input-field input{
     width: 100%;
     padding:.3rem;
@@ -98,6 +110,19 @@
     border: none;
     border-bottom: 2px solid black;
 }
+.input-field input[type='date']{
+    width: auto;
+    margin-left: 1rem;
+    border: 1px solid black;
+}
+
+.file-input input[type='file']{
+    width: 180px;
+    margin-left: 1rem;
+    cursor: pointer;
+    color: black;
+}
+
 
 .input-field input::placeholder{
     color: rgba(79, 97, 98, 0.587);
@@ -115,7 +140,7 @@
 }
 
 .submit{
-    margin: .6rem;
+    margin: 1.5rem .6rem .6rem .6rem;
 }
 .submit .btn,.add-btn .btn{
     background-color: #79e1ed;

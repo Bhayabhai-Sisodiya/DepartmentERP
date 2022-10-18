@@ -160,26 +160,31 @@ const Works = () => {
                         <AiOutlineClose/>
                     </div>
                 </div>
-                
-                <div className='input-field'>
-                    <input onChange={handleChange} name='detail' type='text' value={Work.detail} placeholder='detail'/>
+                <div className='input-grid'>
+                    <div className='input-field'>
+                        <input onChange={handleChange} name='detail' type='text' value={Work.detail} placeholder='detail'/>
+                    </div>
+                    <div className='input-field'>
+                        <input onChange={handleChange} name='client' type='text' value={Work.client} placeholder='client'/>
+                    </div>
+                </div> 
+                <div className='input-grid'>   
+                    <div className='input-field'>
+                        <input onChange={handleChange} name='cost' type='text' value={Work.cost} placeholder='cost'/>
+                    </div>
+                    <div className='input-field'>
+                        <input onChange={handleChange} name='faculty_involved' type='text' value={Work.faculty_involved} placeholder='faculty involved'/>
+                    </div>
                 </div>
-                <div className='input-field'>
-                    <input onChange={handleChange} name='client' type='text' value={Work.client} placeholder='client'/>
-                </div>
-                <div className='input-field'>
-                    <input onChange={handleChange} name='cost' type='text' value={Work.cost} placeholder='cost'/>
-                </div>
-                <div className='input-field'>
-                    <input onChange={handleChange} name='faculty_involved' type='text' value={Work.faculty_involved} placeholder='faculty involved'/>
-                </div>
-                <div className='input-field file-input'>
-                    <p className='input-title'>add a certificate:</p>
-                    <input type='file' onChange={handleChange} name='certificate' value={Work.certificate}/>
-                </div>
-                <div className='input-field file-input'>
-                    <p className='input-title'>add a report:</p>
-                    <input type='file' onChange={handleChange} name='report' value={Work.report}/>
+                <div className='input-grid'>
+                    <div className='file-input'>
+                        <p className='input-title'>add a certificate:</p>
+                        <input type='file' onChange={handleChange} name='certificate' value={Work.certificate}/>
+                    </div>
+                    <div className='file-input'>
+                        <p className='input-title'>add a report:</p>
+                        <input type='file' onChange={handleChange} name='report' value={Work.report}/>
+                    </div>
                 </div>
                 <div className='submit'>
                     <button onClick={handleSubmit} className="btn" type="submit">Submit</button>

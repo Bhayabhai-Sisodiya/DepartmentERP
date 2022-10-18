@@ -193,7 +193,7 @@ const Events = () => {
             {/* add Event details */}
             {Show?<div className='forms event-form'>
                 <div className='form-header'>
-                    <h3>add event organized details</h3>
+                    <h3>add organized events details</h3>
                     <div className='close-btn' onClick={() =>setShow(false)}>
                         <AiOutlineClose/>
                     </div>
@@ -208,49 +208,65 @@ const Events = () => {
                         <option value="expert talk">expert talk</option>
                     </select>
                 </div>
-                <div className='input-field'>
-                    <input type='text' onChange={handleChange} name='title' value={Event.title} placeholder='title'/>
+                <div className='input-grid'>
+                    <div className='input-field'>
+                        <input type='text' onChange={handleChange} name='title' value={Event.title} placeholder='title'/>
+                    </div>
+                    <div className='input-field'>
+                        <input type='text' onChange={handleChange} name='cordinator' value={Event.cordinator} placeholder='coordinator'/>
+                    </div>
                 </div>
-                <div className='input-field'>
-                    <input type='text' onChange={handleChange} name='cordinator' value={Event.cordinator} placeholder='coordinator'/>
-                </div>
-                <div className='input-field'>
-                    <input type='date' onChange={handleChange} name='start_date' value={Event.start_date} placeholder='start date'/>
-                </div>
-                <div className='input-field'>
-                    <input type='date' onChange={handleChange} name='end_date' value={Event.end_date} placeholder='end date'/>
-                </div>
-                <div className='input-field'>
-                    <input type='text' onChange={handleChange} name='cost' value={Event.cost} placeholder='cost (expenses)'/>
-                </div>
+                
+                <div className='input-grid'>
+                    <div className='input-field'>
+                        <p className='input-title'>event start date:</p>
+                        <input type='date' onChange={handleChange} name='start_date' value={Event.start_date} placeholder='start date'/>
+                    </div>
+                    <div className='input-field'>
+                        <p className='input-title'>event end date:</p>
+                        <input type='date' onChange={handleChange} name='end_date' value={Event.end_date} placeholder='end date'/>
+                    </div>
+                </div>    
                 <div className='input-field'>
                     <input type='text' onChange={handleChange} name='no_of_participants' value={Event.no_of_participants} placeholder='number of participants'/>
                 </div>
-                <div className='input-field'>
-                    <input type='text' onChange={handleChange} name='sponsor' value={Event.sponsor} placeholder='sponsors'/>
+
+                <div className='input-grid'>
+                    <div className='input-field'>
+                        <input type='text' onChange={handleChange} name='cost' value={Event.cost} placeholder='cost (expenses)'/>
+                    </div>
+                    <div className='input-field'>
+                        <input type='text' onChange={handleChange} name='sponsor' value={Event.sponsor} placeholder='sponsors'/>
+                    </div>
                 </div>
                 <div className='input-field'>
-                    <p className='input-title'>choose a type:</p>
+                    <p className='input-title'>participants:</p>
                     <select name='for_whome' onChange={handleChange} value={Event.for_whome} className='select-options'>
                         <option value="faculties">faculties</option>
                         <option value="students">student</option>
                     </select>
                 </div>
-                <div className='input-field file-input'>
-                    <p className='input-title'>add a report:</p>
-                    <input type='file' onChange={handleChange} name='report' value={Event.report}/>
+
+                <div className='input-grid'>
+                    <div className='file-input'>
+                        <p className='input-title'>add a report:</p>
+                        <input type='file' onChange={handleChange} name='report' value={Event.report}/>
+                    </div>
+                    <div className='file-input'>
+                        <p className='input-title'>add a approval letter:</p>
+                        <input type='file' onChange={handleChange} name='report' value={Event.approval_letter}/>
+                    </div>
                 </div>
-                <div className='input-field file-input'>
-                    <p className='input-title'>add a approval letter:</p>
-                    <input type='file' onChange={handleChange} name='report' value={Event.approval_letter}/>
-                </div>
-                <div className='input-field file-input'>
-                    <p className='input-title'>add a attendance sheet:</p>
-                    <input type='file' onChange={handleChange} name='report' value={Event.attendance_sheet}/>
-                </div>
-                <div className='input-field file-input'>
-                    <p className='input-title'>add a photos:</p>
-                    <input type='file' onChange={handleChange} name='report' value={Event.photos}/>
+
+                <div className='input-grid'>
+                    <div className='file-input'>
+                        <p className='input-title'>add attendance sheet:</p>
+                        <input type='file' onChange={handleChange} name='report' value={Event.attendance_sheet}/>
+                    </div>
+                    <div className='file-input'>
+                        <p className='input-title'>add a photos:</p>
+                        <input type='file' onChange={handleChange} name='report' value={Event.photos}/>
+                    </div>
                 </div>
 
                 <div className='submit'>

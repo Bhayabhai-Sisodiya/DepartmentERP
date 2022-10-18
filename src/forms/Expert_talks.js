@@ -161,17 +161,24 @@ const Expert_talks = () => {
                         <AiOutlineClose/>
                     </div>
                 </div>
-                <div className='input-field'>
-                    <input onChange={handleChange} name='title_talk' type='text' value={Talks.title_talk} placeholder='title'/>
+
+                <div className='input-grid'>    
+                    <div className='input-field'>
+                        <input onChange={handleChange} name='title_talk' type='text' value={Talks.title_talk} placeholder='title'/>
+                    </div>
+                    <div className='input-field'>
+                        <input onChange={handleChange} name='faculty_name' type='text' value={Talks.faculty_name} placeholder='faculty'/>
+                    </div>
                 </div>
-                <div className='input-field'>
-                    <input onChange={handleChange} name='faculty_name' type='text' value={Talks.faculty_name} placeholder='faculty'/>
-                </div>
-                <div className='input-field'>
-                    <input onChange={handleChange} name='title_program' type='text' value={Talks.title_program} placeholder='title program'/>
-                </div>
-                <div className='input-field'>
-                    <input onChange={handleChange} name='date' type='date' value={Talks.date} placeholder='date'/>
+
+                <div className='input-grid'>
+                    <div className='input-field'>
+                        <input onChange={handleChange} name='title_program' type='text' value={Talks.title_program} placeholder='title program'/>
+                    </div>
+                    <div className='input-field'>
+                        <p className='input-title'>talk date:</p>
+                        <input onChange={handleChange} name='date' type='date' value={Talks.date} placeholder='date'/>
+                    </div>
                 </div>
                 <div className='input-field'>
                     <input onChange={handleChange} name='vanue' type='text' value={Talks.vanue} placeholder='vanue'/>

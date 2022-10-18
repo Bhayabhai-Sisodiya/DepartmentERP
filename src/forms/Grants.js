@@ -186,31 +186,44 @@ const Grants = () => {
                         <option value="international">research project</option>
                     </select>
                 </div>
-                <div className='input-field'>
-                    <input type='text' onChange={handleChange} value={Grant.coordinator} name='coordinator' placeholder='coordinator'/>
+                <div className='input-grid'>
+                    <div className='input-field'>
+                        <input type='text' onChange={handleChange} value={Grant.project_title} name='project_title' placeholder='project title'/>
+                    </div>
+                    <div className='input-field'>
+                        <input type='text' onChange={handleChange} value={Grant.coordinator} name='coordinator' placeholder='coordinator'/>
+                    </div>
                 </div>
-                <div className='input-field'>
-                    <input type='text' onChange={handleChange} value={Grant.project_title} name='project_title' placeholder='project title'/>
+
+                <div className='input-grid'>
+                    <div className='input-field'>
+                        <p className='input-title'>start date:</p>
+                        <input type='date' onChange={handleChange} name='start_date' value={Grant.start_date} placeholder='start date'/>
+                    </div>
+                    <div className='input-field'>
+                        <p className='input-title'>end date:</p>
+                        <input type='date' onChange={handleChange} name='end_date' value={Grant.end_date} placeholder='end date'/>
+                    </div>
                 </div>
-                <div className='input-field'>
-                    <input type='date' onChange={handleChange} name='start_date' value={Grant.start_date} placeholder='start date'/>
+
+                <div className='input-grid'>
+                    <div className='input-field'>
+                        <input type='text' onChange={handleChange} value={Grant.funding_agency} name='funding_agency' placeholder='funding agency'/>
+                    </div>
+                    <div className='input-field'>
+                        <input type='text' onChange={handleChange} value={Grant.amount} name='amount' placeholder='amount'/>
+                    </div>
                 </div>
-                <div className='input-field'>
-                    <input type='date' onChange={handleChange} name='end_date' value={Grant.end_date} placeholder='end date'/>
-                </div>
-                <div className='input-field'>
-                    <input type='text' onChange={handleChange} value={Grant.funding_agency} name='funding_agency' placeholder='funding agency'/>
-                </div>
-                <div className='input-field'>
-                    <input type='text' onChange={handleChange} value={Grant.amount} name='amount' placeholder='amount'/>
-                </div>
-                <div className='input-field file-input'>
-                    <p className='input-title'>add a approval letter:</p>
-                    <input type='file' onChange={handleChange} name='approval_letter' value={Grant.approval_letter}/>
-                </div>
-                <div className='input-field file-input'>
-                    <p className='input-title'>add a completion letter:</p>
-                    <input type='file' onChange={handleChange} name='completion_letter' value={Grant.completion_letter}/>
+
+                <div className='input-grid'>
+                    <div className='file-input'>
+                        <p className='input-title'>add a approval letter:</p>
+                        <input type='file' onChange={handleChange} name='approval_letter' value={Grant.approval_letter}/>
+                    </div>
+                    <div className='file-input'>
+                        <p className='input-title'>add a completion letter:</p>
+                        <input type='file' onChange={handleChange} name='completion_letter' value={Grant.completion_letter}/>
+                    </div>
                 </div>
                 <div className='submit'>
                     <button onClick={handleSubmit} className="btn" type="submit">Submit</button>

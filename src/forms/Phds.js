@@ -164,6 +164,7 @@ const Phds = () => {
                     </select>
                 </div>
                 <div className='input-field'>
+                    <p className='input-title'>completion date:</p>
                     <input type='date' onChange={handleChange} name='date_of_completion' value={Phd.date_of_completion} placeholder='date of completion'/>
                 </div>
                 <div className='input-field'>

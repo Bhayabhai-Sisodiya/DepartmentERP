@@ -161,6 +161,7 @@ const Tours = () => {
 
             
                 <div className='input-field'>
+                    <p className='input-title'>tour date:</p>
                     <input onChange={handleChange} name="date" type='date' value={Tour.date} />
                 </div>
                 <div className='input-field'>

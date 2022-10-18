@@ -165,23 +165,32 @@ const Book_publish = () => {
                         <AiOutlineClose/>
                     </div>
                 </div>
-                <div className='input-field'>
-                    <input type='text' onChange={handleChange} name='title' value={Book.title} placeholder='book Title'/>
-                </div>
-                <div className='input-field'>
-                    <input type='text' onChange={handleChange} name='author' value={Book.author} placeholder='author'/>
-                </div>
-                <div className='input-field'>
-                    <input type='text' onChange={handleChange} name='co_author' value={Book.co_author} placeholder='co author'/>
-                </div>
-                <div className='input-field'>
+                <div className='input-grid'>
+                    <div className='input-field'>
+                        <input type='text' onChange={handleChange} name='title' value={Book.title} placeholder='book Title'/>
+                    </div>
+                    <div className='input-field'>
+                    <p className='input-title'>publication date:</p>
                     <input type='date' onChange={handleChange} name='publication_date' value={Book.publication_date} placeholder='publication date'/>
+                    </div>
                 </div>
-                <div className='input-field'>
-                    <input type='text' onChange={handleChange} name='publisher' value={Book.publisher} placeholder='publisher'/>
-                </div>
-                <div className='input-field'>
-                    <input type='text' onChange={handleChange} name='ISBN' value={Book.ISBN} placeholder='ISBN'/>
+
+                <div className='input-grid'>
+                    <div className='input-field'>
+                            <input type='text' onChange={handleChange} name='author' value={Book.author} placeholder='author'/>
+                        </div>
+                    <div className='input-field'>
+                        <input type='text' onChange={handleChange} name='co_author' value={Book.co_author} placeholder='co author'/>
+                    </div>
+                </div>    
+
+                <div className='input-grid'>
+                    <div className='input-field'>
+                        <input type='text' onChange={handleChange} name='publisher' value={Book.publisher} placeholder='publisher'/>
+                    </div>
+                    <div className='input-field'>
+                        <input type='text' onChange={handleChange} name='ISBN' value={Book.ISBN} placeholder='ISBN'/>
+                    </div>
                 </div>
                 <div className='submit'>
                     <button onClick={handleSubmit} className="btn" type="submit">Submit</button>

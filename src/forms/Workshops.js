@@ -173,17 +173,23 @@ const Workshops = () => {
                         <AiOutlineClose/>
                     </div>
                 </div>
-                <div className='input-field'>
-                    <input type='date' onChange={handleChange} name='start_date' value={Workshop.start_date} placeholder='start date'/>
+                <div className='input-grid'>
+                    <div className='input-field'>
+                        <p className='input-title'>start date:</p>
+                        <input type='date' onChange={handleChange} name='start_date' value={Workshop.start_date} placeholder='start date'/>
+                    </div>
+                    <div className='input-field'>
+                        <p className='input-title'>end date:</p>
+                        <input type='date' onChange={handleChange} name='end_date' value={Workshop.end_date} placeholder='end date'/>
+                    </div>
                 </div>
-                <div className='input-field'>
-                    <input type='date' onChange={handleChange} name='end_date' value={Workshop.end_date} placeholder='end date'/>
-                </div>
-                <div className='input-field'>
-                    <input type='text' onChange={handleChange} name='expert' value={Workshop.expert} placeholder='expert'/>
-                </div>
-                <div className='input-field'>
-                    <input type='text' onChange={handleChange} name='title' value={Workshop.title} placeholder='title'/>
+                <div className='input-grid'>
+                    <div className='input-field'>
+                        <input type='text' onChange={handleChange} name='title' value={Workshop.title} placeholder='title'/>
+                    </div>
+                    <div className='input-field'>
+                        <input type='text' onChange={handleChange} name='expert' value={Workshop.expert} placeholder='expert'/>
+                    </div>
                 </div>
                 <div className='input-field'>
                     <p className='input-title'>choose a type:</p>

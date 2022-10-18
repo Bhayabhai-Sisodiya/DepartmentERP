@@ -165,17 +165,20 @@ const Patents = () => {
                         <AiOutlineClose/>
                     </div>
                 </div>
+                <div className='input-grid'>
+                    <div className='input-field'>
+                        <input onChange={handleChange} type='text' name='title' value={Patent.title} placeholder='title'/>
+                    </div>
+                    <div className='input-field'>
+                        <input onChange={handleChange} type='text' name='faculty' value={Patent.faculty} placeholder='faculty'/>
+                    </div>
+                </div>
 
-                <div className='input-field'>
-                    <input onChange={handleChange} type='text' name='faculty' value={Patent.faculty} placeholder='faculty'/>
-                </div>
-                <div className='input-field'>
-                    <input onChange={handleChange} type='text' name='title' value={Patent.title} placeholder='title'/>
-                </div>
                 <div className='input-field'>
                     <input onChange={handleChange} type='text' name='application_no' value={Patent.application_no} placeholder='application number'/>
                 </div>
                 <div className='input-field'>
+                    <p className='input-title'>date:</p>
                     <input onChange={handleChange} type='date' name='date' value={Patent.date} placeholder='date'/>
                 </div>
                 <div className='input-field'>

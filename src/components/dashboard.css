@@ -73,8 +73,28 @@
     margin-right: .5rem;
     font-size: .7rem;
 }
-
-.dropdown-menu{
+/* .popup{
+    border: 1px solid black;
+    width: 100px;
+    height: 20px;
+    padding: 5px;
+    position: relative;
+} */
+/* .popup-box{
+    color: black;
+    position: absolute;
+    bottom: 0;
+    left: 100px;
+    box-shadow: 0 2px 5px rgb(0 0 0 / 10%), 0 2px 10px rgb(0 0 0 / 10%);
+    background-color: rgb(242, 242, 242);
+    border-radius: .2rem;
+    width: 250px;
+    height: 100px;
+    z-index: 1;
+    padding:0px 5px 10px 5px;
+    transition: .2s;
+} */
+.dropdown-menu,.popup-box{
     color: black;
     position: absolute;
     top: 3.5rem;
@@ -88,7 +108,20 @@
     padding:0px 5px 10px 5px;
     transition: .2s;
 }
-.dropdown-menu .close-btn{
+.popup-box{
+    top: 0;
+    right: 0;
+    bottom: 0;
+    /* transform: translate(-50%,-50%,-50%,-50%); */
+    height: 100px;
+}
+.print-btns{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top:40px;
+}
+.dropdown-menu .close-btn, .popup-box .close-btn{
     float: right;
     font-size: 1rem;
     }

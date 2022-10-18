@@ -16,34 +16,29 @@ const Searchbar = ({value,onChange,filterItem,onFilter}) => {
     
     return ( 
         <div className='search-box'>
-             
-               <div className='search-field'>
-                    <input 
-                    name="query" 
-                    value={value} 
-                    onChange={e=>onChange(e.target.value)}
-                    type='text'  placeholder='search by faculty/author/co-author...'/>
-                    <span><BiSearch/></span>
-                </div>
+
+            {/* search field (search by faculty/author/co-author...) */}
+            <div className='search-field'>
+                <input name="query" value={value} onChange={e=>onChange(e.target.value)} type='text' 
+                 placeholder='search by faculty/author/co-author...'/> <span><BiSearch/></span>
+            </div>
         
-             <button className='filter-btn' onClick={handleDropdown}><FaFilter />filter</button> 
+            {/* filter button */}
+            <button className='filter-btn' onClick={handleDropdown}><FaFilter />filter</button> 
+
+            {/* filter button show drop-down menu */}
              {ShowDropDown?
-             <div className='dropdown-menu'>
-                <div className='close-btn' onClick={() =>setShowDropDown(false)}><AiOutlineClose/></div>
-
-                <div className='filter-options'>
-                    {filterItem.map((x) => {
-                       return <label><input type="checkbox" onChange={() => onFilter(x)} />{x.name}</label>
-                    })}
-                </div>
-                <button className='filter-submit-btn' onClick={() =>{setShowDropDown(false)}}>search</button>
-             </div>        
+                <div className='dropdown-menu'>
+                    <div className='close-btn' onClick={() =>setShowDropDown(false)}><AiOutlineClose/></div>
+                    <div className='filter-options'>
+                        {filterItem.map((x) => {
+                        return <label><input type="checkbox" onChange={() => onFilter(x)} />{x.name}</label>
+                        })}
+                    </div>
+                    <button className='filter-submit-btn' onClick={() =>{setShowDropDown(false)}}>search</button>
+                </div>        
              :null} 
-        </div>
-
-        
-
-        
+        </div> 
      );
 }
  
