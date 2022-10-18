@@ -116,7 +116,7 @@ const Phds = () => {
             {/* showing the fetched data */}
             <div className='table-show-outer-box'>
             <div ref={componentRef} className='showData' >
-                <h2>Phd completed</h2>
+                <h2>qualification</h2>
                     <table>
                         <tr>
                             <th>degree</th>
