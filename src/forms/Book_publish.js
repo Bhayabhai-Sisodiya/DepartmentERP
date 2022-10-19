@@ -19,6 +19,11 @@ const Book_publish = () => {
     //onclick add new button - show form
     const [Show,setShow] = useState(false) 
     
+    //function for show popup when click on print button
+    const [ShowPopup,setShowPopup] = useState(false) ;
+    const handlePopup=()=>{
+        setShowPopup(!setShowPopup)
+    }   
     // function for changing the states
     const handleChange = (e) => {
         //window.alert(e.target.value);
@@ -114,12 +119,14 @@ const Book_publish = () => {
             <div className='add-btn'>
                 <button className='btn' onClick={() =>{setShow(true);clearform()}}><span><AiOutlinePlus /></span>add new</button>
                 <button className='btn upload-excel'><span><AiOutlinePlus /></span>upload excel file</button>
+                <button className='download-btn' onClick={handlePopup}><HiPrinter/><span>print</span></button>
             </div>
+
 
             {/* showing the fetched data */}
             <div className='table-show-outer-box'>
+            <h2>book publication</h2>
             <div ref={componentRef} className='showData' >
-                <h2>book publication</h2>
                     <table>
                         <tr>
                             <th>book title</th>
@@ -148,14 +155,14 @@ const Book_publish = () => {
                 </div>
 
                 {/* print button */}
-                <ReactToPrint
+                {/* <ReactToPrint
                 trigger={()=>{
                     return <button className='download-btn' ><HiPrinter/>print </button>
                 }}
                 content={()=>componentRef.current}
                 documentTitle="book publish"
                 pageStyle="print"
-                />            
+                />             */}
                 </div>
             {/* add book publish details */}
             {Show?<div className='forms'>

@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import './dashboard.css';
 import { BiSearch } from "react-icons/bi";
 import { FaFilter } from "react-icons/fa";
+import { AiOutlineMenu } from "react-icons/ai";
 import { AiOutlineClose } from "react-icons/ai";
-
 
 const Searchbar = ({value,onChange,filterItem,onFilter}) => {
 
@@ -12,10 +12,15 @@ const Searchbar = ({value,onChange,filterItem,onFilter}) => {
     const handleDropdown=()=>{
         setShowDropDown(!ShowDropDown)
     }
-
+    const [showSidebar,setShowSidebar] = useState(false) ;
+    const handleSidebar=()=>{
+        setShowSidebar(!setShowSidebar)
+    }
     
     return ( 
         <div className='search-box'>
+            {/* menu bar for open sidebar in tablet and mobile view */}
+            <div className="open-sidebar sidebar-icon" onClick={handleSidebar}><AiOutlineMenu/></div>
 
             {/* search field (search by faculty/author/co-author...) */}
             <div className='search-field'>
@@ -24,7 +29,7 @@ const Searchbar = ({value,onChange,filterItem,onFilter}) => {
             </div>
         
             {/* filter button */}
-            <button className='filter-btn' onClick={handleDropdown}><FaFilter />filter</button> 
+            <button className='filter-btn' onClick={handleDropdown}><FaFilter /><span>filter</span></button> 
 
             {/* filter button show drop-down menu */}
              {ShowDropDown?

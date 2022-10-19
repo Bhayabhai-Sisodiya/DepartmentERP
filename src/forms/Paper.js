@@ -3,7 +3,10 @@ import './form.css';
 import '../components/showData.css';
 import { AiOutlineClose } from "react-icons/ai";
 import { AiOutlinePlus } from "react-icons/ai";
+import { AiOutlineMenu } from "react-icons/ai";
 import { HiPrinter } from "react-icons/hi";
+import { VscFilePdf } from "react-icons/vsc";
+import { SiMicrosoftexcel } from "react-icons/si";
 import axios from 'axios';
 import ReactToPrint from 'react-to-print';
 import Searchbar from '../components/searchbar'
@@ -20,9 +23,10 @@ const Papers = () => {
     //onclick add new button - show form
     const [Show,setShow] = useState(false) ;
 
-    const [ShowDropDown,setShowDropDown] = useState(false) ;
-    const handleDropdown=()=>{
-        setShowDropDown(!ShowDropDown)
+    //function for show popup when click on print button
+    const [ShowPopup,setShowPopup] = useState(false) ;
+    const handlePopup=()=>{
+        setShowPopup(!ShowPopup)
     }   
 
     // function for changing the states
@@ -193,19 +197,38 @@ const Papers = () => {
             {/* searchbar component */}
             <Searchbar value={serchQuery} onChange={handleSearch} filterItem={filter_items} onFilter={handleFilter}/>
 
-            {/* add new button / excel button*/}
+            {/* add new button / excel button / print button*/}
             <div className='add-btn'>
-                <button className='btn' onClick={() =>{setShow(true); clearform()}}><span><AiOutlinePlus /></span>add new</button>
-                <button className='btn upload-excel'><span><AiOutlinePlus /></span>upload excel file</button>
+                <button className='btn' onClick={() =>{setShow(true); clearform()}}><AiOutlinePlus /><span>add new</span></button>
+                <button className='btn upload-excel'><AiOutlinePlus /><span>upload excel file</span></button>
+                <button className='download-btn' onClick={handlePopup}><HiPrinter/><span>print</span></button>
             </div>
 
-            {/* filter options */}
-
+            {/* popup-box for pdf & excel */}
+            {ShowPopup?
+                <div className='popup-box'>
+                    <div className='close-btn' onClick={() =>setShowPopup(false)}><AiOutlineClose/></div>
+                    <div className='print-btns'>
+                        <div className='print-btn-to-pdf printBtn'>
+                            <ReactToPrint
+                                trigger={()=>{
+                                return <button onClick={() =>{setShowPopup(false)}} ><VscFilePdf/><span>to pdf</span></button>
+                                }}
+                                content={()=>componentRef.current}
+                                documentTitle="paper"
+                                pageStyle="print"
+                            />
+                        </div>
+                        <div className='print-btn-to-excel printBtn'><SiMicrosoftexcel/><span>to excel</span></div>            
+                    </div>  
+                </div>        
+            :null}
 
             {/* showing the fetched data */}
             <div  className='table-show-outer-box'>
-                <div ref={componentRef} className='showData' >
                 <h2>papers</h2>
+                <div ref={componentRef} className='showData' >
+                    
                     <table id='PrintData'>
                         <tr>
                             <th>national/international</th>
@@ -243,35 +266,10 @@ const Papers = () => {
                     </table>
                 </div>
 
-                {/* print button  */}
+                 
                 
+                {/* <button className='download-btn' onClick={handleDropdown}><HiPrinter/><span>print</span></button> */}
 
-
-                    {ShowDropDown?
-                        <div className='popup-box'>
-                            <div className='close-btn' onClick={() =>setShowDropDown(false)}><AiOutlineClose/></div>
-                            <div className='print-btns'>
-                                <div className='print-btn-to-pdf'>
-                                    <ReactToPrint
-                                        trigger={()=>{
-                                        return <button onClick={() =>{setShowDropDown(false)}} ><HiPrinter/>to pdf</button>
-                                        }}
-                                        content={()=>componentRef.current}
-                                        documentTitle="paper"
-                                        pageStyle="print"
-                                    />
-                                </div>
-                                <div className='print-btn-to-excel'>content2</div>
-                                
-                            </div>  
-                        </div>        
-                    :null} 
-                
-                
-                    <button className='download-btn' onClick={handleDropdown}><HiPrinter/>print </button>
-
-
-                
                 {/* <ReactToPrint
                 trigger={()=>{
                     return <button className='download-btn' onClick={handleDropdown}><HiPrinter/>print </button>

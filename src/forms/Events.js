@@ -136,8 +136,9 @@ const Events = () => {
 
             {/* showing the fetched data */}
             <div className='table-show-outer-box'>
+            <h2>event organized</h2>
             <div ref={componentRef} className='showData' >
-                <h2>event organized</h2>
+                
                     <table>
                         <tr>
                             <th>type</th>

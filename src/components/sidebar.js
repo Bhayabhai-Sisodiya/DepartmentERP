@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './dashboard.css';
+import { AiOutlineClose } from "react-icons/ai";
 
 
 // const Sidebar = (props) => {
@@ -35,7 +36,12 @@ import './dashboard.css';
 
 const Sidebar = (props) => {
 
-    // change category onclick the list item
+    const [showSidebar,setShowSidebar] = useState(true) ;
+    const handleSidebar=()=>{
+        setShowSidebar(!setShowSidebar)
+    }
+
+    // change category onclick the list item  
     const onChangeCategory=async (category)=>{
         console.log(category)
         props.onChangeCategory(category);
@@ -43,7 +49,8 @@ const Sidebar = (props) => {
 
     return ( 
         <>
-        <div className='sidebar'>
+        {showSidebar?<div className='sidebar active'>
+            <div className='close-sidebar sidebar-icon' onClick={handleSidebar}><AiOutlineClose/></div>
         <ul>
         {categories.map((category)=>{
             return (
@@ -51,7 +58,7 @@ const Sidebar = (props) => {
             )
         })}
         </ul>
-        </div>
+        </div>:null}
         </>
      );
 }

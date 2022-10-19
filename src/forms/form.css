@@ -21,7 +21,7 @@
 .upload-excel{
     margin-left: 10px;
 }
-.add-btn .btn span{
+.add-btn .btn svg{
     margin: 0rem .5rem 0 .5rem;
     padding-top: .2rem;
 }
@@ -153,7 +153,19 @@
     text-transform: uppercase;
     margin-top: .8rem;
 }
+.add-btn .btn {
+    margin-top: 0;
+}
 .submit .btn:hover,.add-btn .btn:hover{
     background-color: #66c0ca;
 }
 
+@media screen and (max-width:768px) {
+    .add-btn .btn{
+        width: 200px;
+    }
+    .forms{
+        left: 10%;
+        top: -100%;
+    }
+}
