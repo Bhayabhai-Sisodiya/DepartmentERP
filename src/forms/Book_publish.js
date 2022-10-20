@@ -4,6 +4,8 @@ import '../components/showData.css';
 import { AiOutlineClose } from "react-icons/ai";
 import { AiOutlinePlus } from "react-icons/ai";
 import { HiPrinter } from "react-icons/hi";
+import { VscFilePdf } from "react-icons/vsc";
+import { SiMicrosoftexcel } from "react-icons/si";
 import Searchbar from '../components/searchbar';
 import axios from 'axios';
 import ReactToPrint from 'react-to-print';
@@ -22,8 +24,8 @@ const Book_publish = () => {
     //function for show popup when click on print button
     const [ShowPopup,setShowPopup] = useState(false) ;
     const handlePopup=()=>{
-        setShowPopup(!setShowPopup)
-    }   
+        setShowPopup(!ShowPopup)
+    }    
     // function for changing the states
     const handleChange = (e) => {
         //window.alert(e.target.value);
@@ -122,6 +124,25 @@ const Book_publish = () => {
                 <button className='download-btn' onClick={handlePopup}><HiPrinter/><span>print</span></button>
             </div>
 
+            {/* popup-box for pdf & excel */}
+            {ShowPopup?
+                <div className='popup-box'>
+                    <div className='close-btn' onClick={() =>setShowPopup(false)}><AiOutlineClose/></div>
+                    <div className='print-btns'>
+                        <div className='print-btn-to-pdf printBtn'>
+                            <ReactToPrint
+                                trigger={()=>{
+                                return <button onClick={() =>{setShowPopup(false)}} ><VscFilePdf/><span>to pdf</span></button>
+                                }}
+                                content={()=>componentRef.current}
+                                documentTitle="book publish"
+                                pageStyle="print"
+                            />
+                        </div>
+                        <div className='print-btn-to-excel printBtn'><SiMicrosoftexcel/><span>to excel</span></div>            
+                    </div>  
+                </div>        
+            :null}
 
             {/* showing the fetched data */}
             <div className='table-show-outer-box'>
