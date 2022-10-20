@@ -10,7 +10,7 @@ import axios from 'axios';
 import ReactToPrint from 'react-to-print';
 import Searchbar from '../components/searchbar';
 
-const Tours = () => {
+const Tours = ({alterSidebar}) => {
     const [Tour, setTour] = useState({
         date:"",faculty_name:"", place:"",no_of_student:""
     });
@@ -114,7 +114,7 @@ const Tours = () => {
     
     return ( 
         <>
-            <Searchbar value={serchQuery} onChange={handleSearch}/>
+            <Searchbar value={serchQuery} alterSidebar={alterSidebar} onChange={handleSearch}/>
             {/* add new button */}
             <div className='add-btn'>
                 <button className='btn' onClick={() =>{setShow(true);clearform()}}><span><AiOutlinePlus /></span>add new</button>

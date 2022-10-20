@@ -11,7 +11,7 @@ import axios from 'axios';
 import ReactToPrint from 'react-to-print';
 
 
-const Book_publish = () => {
+const Book_publish = ({alterSidebar}) => {
     const [Book, setBook] = useState({
         title:"",author:"",co_author:"",publication_date:"",publisher:"",ISBN:""
     });
@@ -116,7 +116,7 @@ const Book_publish = () => {
     }
     return ( 
         <>
-            <Searchbar value={serchQuery} onChange={handleSearch}/>
+            <Searchbar value={serchQuery} alterSidebar={alterSidebar} onChange={handleSearch}/>
             {/* add new button */}
             <div className='add-btn'>
                 <button className='btn' onClick={() =>{setShow(true);clearform()}}><span><AiOutlinePlus /></span>add new</button>

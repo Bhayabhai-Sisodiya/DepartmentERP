@@ -11,7 +11,7 @@ import Searchbar from '../components/searchbar';
 import ReactToPrint from 'react-to-print';
 
 
-const Patents = () => {
+const Patents = ({alterSidebar}) => {
     const [Patent, setPatent] = useState({
         faculty:"", title:"",application_no:"",date:"",status:""
     });
@@ -119,7 +119,7 @@ const Patents = () => {
 
     return ( 
         <>
-            <Searchbar value={serchQuery} onChange={handleSearch}/>
+            <Searchbar value={serchQuery} alterSidebar={alterSidebar} onChange={handleSearch}/>
             {/* add new button */}
             <div className='add-btn'>
                 <button className='btn' onClick={() =>{setShow(true);clearform()}}><span><AiOutlinePlus /></span>add new</button>

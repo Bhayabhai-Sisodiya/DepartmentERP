@@ -11,7 +11,7 @@ import ReactToPrint from 'react-to-print';
 import Searchbar from '../components/searchbar';
 
 
-const Grants = () => {
+const Grants = ({alterSidebar}) => {
     
     const [Grant, setGrant] = useState({
         type:"grant",coordinator:"", project_title:"",start_date:"",end_date:"",funding_agency:"",amount:"",approval_letter:"",completion_letter:"",
@@ -126,7 +126,7 @@ const Grants = () => {
 
     return ( 
         <>
-            <Searchbar value={serchQuery} onChange={handleSearch}/>
+            <Searchbar value={serchQuery} alterSidebar={alterSidebar} onChange={handleSearch}/>
             {/* add new button */}
             <div className='add-btn'>
                 <button className='btn' onClick={() =>{setShow(true);clearform()}}><span><AiOutlinePlus /></span>add new</button>

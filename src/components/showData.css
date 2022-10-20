@@ -24,6 +24,8 @@
     position: relative;
     height: 490px;
     color: #3F4E4F;
+    overflow: hidden;
+    padding-bottom: 10px;
 }
 .table-show-outer-box h2{
     text-transform: uppercase;

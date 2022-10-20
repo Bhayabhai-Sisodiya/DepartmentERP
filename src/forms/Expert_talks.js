@@ -10,7 +10,7 @@ import axios from 'axios';
 import ReactToPrint from 'react-to-print';
 import Searchbar from '../components/searchbar';
 
-const Expert_talks = () => {
+const Expert_talks = ({alterSidebar}) => {
     const [Talks, setTalks] = useState({
         title_talk:"",faculty_name:"", title_program:"",date:"",vanue:""
     });
@@ -116,7 +116,7 @@ const Expert_talks = () => {
     
     return ( 
         <>
-            <Searchbar value={serchQuery} onChange={handleSearch}/>
+            <Searchbar value={serchQuery} alterSidebar={alterSidebar} onChange={handleSearch}/>
             {/* add new button */}
             <div className='add-btn'>
                 <button className='btn' onClick={() =>{setShow(true);clearform()}}><span><AiOutlinePlus /></span>add new</button>

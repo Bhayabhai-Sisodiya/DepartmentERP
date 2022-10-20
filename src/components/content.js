@@ -20,16 +20,16 @@ const Content = ({category,alterSidebar}) => {
     const map1={
         'profile':<Profile/>,
         'papers' :<Papers alterSidebar={alterSidebar}/> ,
-        'event organized' :<Events />,
-        'grants' : <Grants />,
-        'event attended' : <Workshops />,
-        'book publication' :<Book_publish />,
-        'patents' : <Patents />,
-        'qualification' : <Phds />,
+        'event organized' :<Events alterSidebar={alterSidebar} />,
+        'grants' : <Grants alterSidebar={alterSidebar}/>,
+        'event attended' : <Workshops alterSidebar={alterSidebar}/>,
+        'book publication' :<Book_publish alterSidebar={alterSidebar}/>,
+        'patents' : <Patents alterSidebar={alterSidebar}/>,
+        'qualification' : <Phds alterSidebar={alterSidebar}/>,
         // 'research projects' : <Researches />,
-        'study tours' :<Tours />,
-        'consultancy work' : <Works />,
-        'outside interaction' : <Expert_talks />,
+        'study tours' :<Tours alterSidebar={alterSidebar}/>,
+        'consultancy work' : <Works alterSidebar={alterSidebar}/>,
+        'outside interaction' : <Expert_talks alterSidebar={alterSidebar}/>,
 
     };
 
