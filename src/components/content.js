@@ -15,11 +15,11 @@ import Works from '../forms/Works';
 import Expert_talks from '../forms/Expert_talks';
 
 
-const Content = ({category}) => {
+const Content = ({category,alterSidebar}) => {
 
     const map1={
         'profile':<Profile/>,
-        'papers' :<Papers />,
+        'papers' :<Papers alterSidebar={alterSidebar}/> ,
         'event organized' :<Events />,
         'grants' : <Grants />,
         'event attended' : <Workshops />,
@@ -32,6 +32,7 @@ const Content = ({category}) => {
         'outside interaction' : <Expert_talks />,
 
     };
+
     return ( 
         <>
         <div className='content'>

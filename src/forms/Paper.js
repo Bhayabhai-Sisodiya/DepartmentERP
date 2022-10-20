@@ -12,7 +12,7 @@ import ReactToPrint from 'react-to-print';
 import Searchbar from '../components/searchbar'
 import { x } from 'joi';
 
-const Papers = () => {
+const Papers = ({alterSidebar}) => {
 
     const [Paper, setPaper] = useState({
         type1:"national", title:"",volume:"",issue:"",year:"",author:"",type2:"conference",indexing:"scoops",ISBN:"",certificate:"",paper:""
@@ -35,7 +35,7 @@ const Papers = () => {
     }
 
     //search handle
-    const [serchQuery,setSearchQuery]=useState("");
+    const [searchQuery,setSearchQuery]=useState("");
     const handleSearch=(query)=>{
         setSearchQuery(query);
         console.log(query);
@@ -125,8 +125,8 @@ const Papers = () => {
     } 
 
     let filtered=Data;
-    if(serchQuery){
-        filtered=filtered.filter(m=> m.author[0].toLowerCase().includes(serchQuery.toLowerCase()));
+    if(searchQuery){
+        filtered=filtered.filter(m=> m.author[0].toLowerCase().includes(searchQuery.toLowerCase()));
     }
     
     const filter_items = [
@@ -191,11 +191,10 @@ const Papers = () => {
         }
     }
 
-
     return ( 
         <>
             {/* searchbar component */}
-            <Searchbar value={serchQuery} onChange={handleSearch} filterItem={filter_items} onFilter={handleFilter}/>
+            <Searchbar value={searchQuery} alterSidebar={alterSidebar} onChange={handleSearch} filterItem={filter_items} onFilter={handleFilter}/>
 
             {/* add new button / excel button / print button*/}
             <div className='add-btn'>

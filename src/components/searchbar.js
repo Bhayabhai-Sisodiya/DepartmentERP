@@ -5,22 +5,22 @@ import { FaFilter } from "react-icons/fa";
 import { AiOutlineMenu } from "react-icons/ai";
 import { AiOutlineClose } from "react-icons/ai";
 
-const Searchbar = ({value,onChange,filterItem,onFilter}) => {
+const Searchbar = ({value,onChange,filterItem,onFilter,alterSidebar}) => {
 
     //onclick filter button - dropdown-menu
     const [ShowDropDown,setShowDropDown] = useState(false) ;
     const handleDropdown=()=>{
         setShowDropDown(!ShowDropDown)
     }
-    const [showSidebar,setShowSidebar] = useState(false) ;
-    const handleSidebar=()=>{
-        setShowSidebar(!setShowSidebar)
-    }
+    // const [showSidebar,setShowSidebar] = useState(false) ;
+    // const handleSidebar=()=>{
+    //     setShowSidebar(!setShowSidebar)
+    // }
     
     return ( 
         <div className='search-box'>
             {/* menu bar for open sidebar in tablet and mobile view */}
-            <div className="open-sidebar sidebar-icon" onClick={handleSidebar}><AiOutlineMenu/></div>
+            <div className="open-sidebar sidebar-icon" onClick={() => alterSidebar()}><AiOutlineMenu/></div>
 
             {/* search field (search by faculty/author/co-author...) */}
             <div className='search-field'>
