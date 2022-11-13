@@ -4,18 +4,16 @@ import { BiSearch } from "react-icons/bi";
 import { FaFilter } from "react-icons/fa";
 import { AiOutlineMenu } from "react-icons/ai";
 import { AiOutlineClose } from "react-icons/ai";
+import { FiLogOut } from "react-icons/fi";
+import { useNavigate } from 'react-router-dom';
 
 const Searchbar = ({value,onChange,filterItem,onFilter,alterSidebar}) => {
 
     //onclick filter button - dropdown-menu
-    const [ShowDropDown,setShowDropDown] = useState(false) ;
+    const [ShowDropDown,setShowDropDown] = useState(false);
     const handleDropdown=()=>{
         setShowDropDown(!ShowDropDown)
     }
-    // const [showSidebar,setShowSidebar] = useState(false) ;
-    // const handleSidebar=()=>{
-    //     setShowSidebar(!setShowSidebar)
-    // }
     
     return ( 
         <div className='search-box'>
@@ -29,7 +27,7 @@ const Searchbar = ({value,onChange,filterItem,onFilter,alterSidebar}) => {
             </div>
         
             {/* filter button */}
-            <button className='filter-btn' onClick={handleDropdown}><FaFilter /><span>filter</span></button> 
+            <button className='filter-btn' onClick={handleDropdown} ><FaFilter /><span>filter</span></button> 
 
             {/* filter button show drop-down menu */}
              {ShowDropDown?

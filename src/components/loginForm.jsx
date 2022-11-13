@@ -14,6 +14,9 @@ import TokenContext from './tokenContext';
 
 export default function LoginForm({setToken}) {
  
+  //Radio button user type 
+  const [selectedPath,setSelectedPath] = useState('faculty');
+
   // States for registration 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -28,6 +31,13 @@ export default function LoginForm({setToken}) {
     setSubmitted(false);
   }; */
  
+  //handling radio buttons
+  const handleRadio = (e) => {
+    setSelectedPath(e.target.value);
+    // window.alert(e.target.value)
+    setSubmitted(false);
+  };
+
   // Handling the email change
   const handleEmail = (e) => {
     setEmail(e.target.value);
@@ -46,7 +56,7 @@ export default function LoginForm({setToken}) {
     if ( email === '' || password === '') {
       setError(true);
     } 
-    else {
+    else if(selectedPath === 'faculty'){
       /* const requestOptions={
         method:'POST',
         headers:{'Content-Type':'application/json'},
@@ -76,7 +86,38 @@ export default function LoginForm({setToken}) {
         console.log(res.data["x-auth-token"]);
         setToken(res.data["x-auth-token"]);
         localStorage.setItem('Token',res.data["x-auth-token"]);
+        navigate('/Faculty_dashboard');
+        
+      }
+      else{
+        window.alert("You have not approved by admin!")
+        console.log("adminin-aproval:false");
+      }
+  }
+  else if(selectedPath === 'admin'){
+    const res=await axios.post("http://localhost:5000/admin_login", {
+        username: email,
+        password: password,
+      }); 
+
+      if(res.status===401 ){
+        window.alert("Please try again!");
+        console.log("Some error accured");
+      }
+      else if(res.status===409){
+        window.alert("No user found!");
+        console.log("User not found");
+      }
+      else if(res.status===200){
+        console.log(res)
+        window.alert("Successfull login!")
+        console.log("login successfully");
+
+        console.log(res.data["x-auth-token"]);
+        setToken(res.data["x-auth-token"]);
+        localStorage.setItem('Token',res.data["x-auth-token"]);
         navigate('/dashboard');
+        
       }
       else{
         window.alert("You have not approved by admin!")
@@ -131,9 +172,9 @@ export default function LoginForm({setToken}) {
               <h3 className='user-type'>user type</h3>
               <div className='radio-btn'>
               <div className='btn'>
-                <input onChange={handleEmail} className="input" name='user' value="faculty" type="radio" required/><p>faculty</p></div>
+                <input className="input" onChange={handleRadio} name='user' value="faculty" type="radio" required/><p>faculty</p></div>
               <div className='btn'>  
-                <input onChange={handleEmail} className="input" name='user' value="admin" type="radio" required/><p>admin</p></div>
+                <input className="input" onChange={handleRadio} name='user' value="admin" type="radio" required/><p>admin</p></div>
               </div>
               </div>
               <div className='input-detail'>

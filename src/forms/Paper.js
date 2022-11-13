@@ -194,7 +194,7 @@ const Papers = ({alterSidebar}) => {
     return ( 
         <>
             {/* searchbar component */}
-            <Searchbar value={searchQuery} alterSidebar={alterSidebar} onChange={handleSearch} filterItem={filter_items} onFilter={handleFilter}/>
+            <Searchbar value={searchQuery} alterSidebar={alterSidebar} onChange={handleSearch} filterItem={filter_items} onFilter={handleFilter} />
 
             {/* add new button / excel button / print button*/}
             <div className='add-btn'>

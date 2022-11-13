@@ -6,6 +6,7 @@ import Form from './components/Form';
 import Dashboard from './components/Dashboard';
 import NotFound from './components/notFound';
 import Profile from './forms/Profile';
+import Faculty_dashboard from './components/Faculty_dashboard';
 
 
 function App() {
@@ -18,7 +19,10 @@ function App() {
       <Routes>
         <Route path="/signup" element={ <Form />}></Route>
         <Route path="/login" element={ <LoginForm  setToken={setToken}/>}></Route>
-        <Route path="/dashboard" element={ <Dashboard Token ={token}/>}>
+        <Route path="/Faculty_dashboard" element={<Faculty_dashboard Token={token}/>}>
+          <Route path="/Faculty_dashboard/profile" element={<Profile/>}/>
+        </Route>
+        <Route path="/dashboard" element={ <Dashboard Token ={token} setToken = {setToken}/>}>
           <Route path="/dashboard/profile" element={<Profile/>}/>
         </Route>
         <Route path="/not-found" element={ <NotFound />}></Route>

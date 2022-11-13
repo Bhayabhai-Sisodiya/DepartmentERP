@@ -3,13 +3,11 @@ import Sidebar from './sidebar';
 import Header from './header';
 import Content from './content';
 import './dashboard.css';
-import { useNavigate } from 'react-router-dom';
 
 
-const Dashboard = ({Token,setToken}) => {
+const  Faculty_dashboard = ({Token}) => {
   
     /** xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx */
-    const navigate = useNavigate();
     const [width, setWidth] = useState(window.innerWidth);
 
     function handleWindowSizeChange() {
@@ -39,24 +37,18 @@ const Dashboard = ({Token,setToken}) => {
       // console.log('AlterSidebar: '+showSidebar)
       setShowSidebar(!showSidebar)
     }
-    useEffect(() => {
-      if(Token === '') {
-        window.alert("your session is expired! please login again");
-        navigate('/login');
-      }
-    });
     
-    return (
-      <>
-                <Header setToken = {setToken}/>
+  return (
+    <>
+                <Header/>
                 <div className='dashboard'>
-                    <Sidebar isMobile={isMobile} onChangeCategory={onChangeCategory} alterSidebar = {alterSidebar} showSidebar={showSidebar} />
+                    {/* <Sidebar isMobile={isMobile} onChangeCategory={onChangeCategory} alterSidebar = {alterSidebar} showSidebar={showSidebar} /> */}
                     <Content category={category} alterSidebar = {alterSidebar} token = {Token}/>
                 </div>
-      </>
-  )}
+            </>
+  )
+}
 
 
-
-export default Dashboard;
+export default Faculty_dashboard;
 

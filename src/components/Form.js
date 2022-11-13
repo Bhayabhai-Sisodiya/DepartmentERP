@@ -13,6 +13,9 @@ import "../App.css";
 
 export default function Form() {
 
+  //Radio button user type 
+  const [selectedPath,setSelectedPath] = useState('faculty');
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [conpass, setconpass] = useState(''); 
@@ -37,6 +40,12 @@ export default function Form() {
     });
   }
 
+  //handling radio buttons
+  const handleRadio = (e) => {
+  setSelectedPath(e.target.value);
+  // window.alert(e.target.value)
+  setSubmitted(false);
+};
 
   const handleEmail = (e) => {
     setEmail(e.target.value);
@@ -57,7 +66,7 @@ export default function Form() {
 
 
   const handleSubmit = async (e) => {
-    if (password != "" && password == conpass) {
+    if (selectedPath === 'faculty' && password != "" && password == conpass) {
         console.log(email);
         const res=await axios.post("http://localhost:5000/registration", {
         username: email,
@@ -79,14 +88,33 @@ export default function Form() {
           window.alert("Registration Successfull , wait for day or two for admin's approval");
           console.log("Registration Successfull");
         }
+    }
+    else if(selectedPath === 'admin' && password != "" && password == conpass){
+      console.log(email);
+      const res=await axios.post("http://localhost:5000/admin_registration", {
+      username: email,
+      password: password,
+    }); 
+    
+      console.log(res);
+      console.log(res.status);
+      if(res.status=== 401 ){
+        window.alert("Invalid registration");
+        console.log("Invalid registration");
 
+      }
+      else if(res.status===201){
+        window.alert("User already exist");            
+        console.log("User already exist");
+      }
+      else{
+        window.alert("Registration Successfull , wait for day or two for admin's approval");
+        console.log("Registration Successfull");
+      }
     }
     else {
       alert("Please enter password correctly");
-
     }
-
-    
   };
 
 
@@ -136,9 +164,9 @@ export default function Form() {
               <h3 className='user-type'>user type</h3>
               <div className='radio-btn'>
               <div className='btn'>
-                <input onChange={handleEmail} className="input" name='user' value="faculty" type="radio" required/><p>faculty</p></div>
+                <input onChange={handleRadio} className="input" name='user' value="faculty" type="radio" required/><p>faculty</p></div>
               <div className='btn'>  
-                <input onChange={handleEmail} className="input" name='user' value="admin" type="radio" required/><p>admin</p></div>
+                <input onChange={handleRadio} className="input" name='user' value="admin" type="radio" required/><p>admin</p></div>
               </div>
               </div>
               <div className='input-detail'>
