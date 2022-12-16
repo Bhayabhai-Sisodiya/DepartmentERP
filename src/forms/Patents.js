@@ -32,12 +32,7 @@ const Patents = ({alterSidebar}) => {
         setShowPopup(!ShowPopup)
     }  
 
-    //handle search
-    const [serchQuery,setSearchQuery]=useState("");
-    const handleSearch=(query)=>{
-        setSearchQuery(query);
-        console.log(query);
-    }
+    
 
     //handel delete
     const handleDelete=async (item)=>{
@@ -98,6 +93,7 @@ const Patents = ({alterSidebar}) => {
 
     //fetching data from the database
     const [Data,setData]=useState([]);
+    const [filtered,setFiltered]=useState([]);
     useEffect(()=>{
         fetchData()
     },[]);
@@ -110,16 +106,80 @@ const Patents = ({alterSidebar}) => {
         //const resp=response.json();
         console.log(response.data);
         setData(response.data);
+        setFiltered(response.data);
     } 
 
-    let filtered=Data;
-    if(serchQuery){
-        filtered=Data.filter(m=> m.faculty[0].toLowerCase().includes(serchQuery.toLowerCase()));
+    let searchdata=Data;
+
+    //search handle
+    const [searchQuery,setSearchQuery]=useState("");
+    
+    const handleSearch=(query)=>{
+        setSearchQuery(query);
+        console.log(query);
+    
+        if(query){
+            
+            searchdata=filtered.filter(m=> m.faculty[0].toLowerCase().includes(query.toLowerCase()));
+            setFiltered(searchdata);
+        }
+        else{
+            setFiltered(Data);
+        }
     }
+
+    //handle filter
+const [filter_items,set_Filter_item] = useState([
+    {
+        "id":1,
+        "name":"2022",
+        "isChecked":false
+    },
+    {
+        "id":2,
+        "name":"2021",
+        "isChecked":false
+    },
+    {
+        "id":3,
+        "name":"2020",
+        "isChecked":false
+    }
+]);
+
+//handle filter function
+const handleFilter = (x) => {
+    //let filtered_f=searchdata;
+     console.log(x);
+     filter_items.map(m=>{
+    if(m.id===x.id)
+        {
+        m.isChecked= !(m.isChecked);
+        } 
+    })
+    set_Filter_item(filter_items);
+    if(filter_items[0].isChecked== true ){
+        searchdata=searchdata.filter(m=> m.date.includes(filter_items[0].name));
+        setFiltered(searchdata);
+   }
+    if(filter_items[1].isChecked== true){
+    searchdata=searchdata.filter(m=> m.date.includes(filter_items[1].name));
+    setFiltered(searchdata);
+   }
+   if(filter_items[2].isChecked== true){
+    searchdata=searchdata.filter(m=> m.date.includes(filter_items[2].name));
+    setFiltered(searchdata);
+   }
+   
+   else{
+    setFiltered(searchdata);
+   }
+   
+}
 
     return ( 
         <>
-            <Searchbar value={serchQuery} alterSidebar={alterSidebar} onChange={handleSearch}/>
+            <Searchbar value={searchQuery} alterSidebar={alterSidebar} onChange={handleSearch} filterItem={filter_items} onFilter={handleFilter}/>
             {/* add new button */}
             <div className='add-btn'>
                 <button className='btn' onClick={() =>{setShow(true);clearform()}}><span><AiOutlinePlus /></span>add new</button>
@@ -161,7 +221,7 @@ const Patents = ({alterSidebar}) => {
                 </tr>
                   {filtered.map((item, i) => (
                     <tr key={i}>
-                        <td>{item.faculty[0]}</td>
+                        <td>{item.faculty}</td>
                         <td>{item.title}</td>
                         <td>{item.application_no}</td>
                         <td>{item.date}</td>

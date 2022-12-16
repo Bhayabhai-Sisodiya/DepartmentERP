@@ -34,12 +34,9 @@ const Grants = ({alterSidebar}) => {
         setShowPopup(!ShowPopup)
     }  
 
-    //handle search
-    const [serchQuery,setSearchQuery]=useState("");
-    const handleSearch=(query)=>{
-        setSearchQuery(query);
-        console.log(query);
-    }
+    
+    
+   
 
     //handel delete
     const handleDelete=async (item)=>{
@@ -104,6 +101,7 @@ const Grants = ({alterSidebar}) => {
     }
     //fetching data from the database
     const [Data,setData]=useState([]);
+    const [filtered,setFiltered]=useState([]);
     useEffect(()=>{
         fetchData()
     },[]);
@@ -117,16 +115,71 @@ const Grants = ({alterSidebar}) => {
         //const resp=response.json();
         console.log(response.data);
         setData(response.data);
+        setFiltered(response.data);
     } 
 
-    let filtered=Data;
-    if(serchQuery){
-        filtered=Data.filter(m=> m.cordinator.toLowerCase().includes(serchQuery.toLowerCase()));
+    let searchdata=Data;
+
+//search handle
+const [searchQuery,setSearchQuery]=useState("");
+
+const handleSearch=(query)=>{
+    setSearchQuery(query);
+    console.log(query);
+
+    if(query){
+        
+        searchdata=filtered.filter(m=> m.cordinator.toLowerCase().includes(query.toLowerCase()));
+        setFiltered(searchdata);
     }
+    else{
+        setFiltered(Data);
+    }
+}
+
+//handle filter
+const [filter_items,set_Filter_item] = useState([
+    {
+        "id":1,
+        "name":"grant",
+        "isChecked":false
+    },
+    {
+        "id":2,
+        "name":"research project",
+        "isChecked":false
+    }
+]);
+
+//handle filter function
+const handleFilter = (x) => {
+    //let filtered_f=searchdata;
+     console.log(x);
+     filter_items.map(m=>{
+    if(m.id===x.id)
+        {
+        m.isChecked= !(m.isChecked);
+        } 
+    })
+    set_Filter_item(filter_items);
+    if(filter_items[0].isChecked== true ){
+        searchdata=searchdata.filter(m=> m.type==filter_items[0].name);
+        setFiltered(searchdata);
+   }
+    if(filter_items[1].isChecked== true){
+    searchdata=searchdata.filter(m=> m.type==filter_items[1].name);
+    setFiltered(searchdata);
+   }
+   
+   else{
+    setFiltered(searchdata);
+   }
+   
+}
 
     return ( 
         <>
-            <Searchbar value={serchQuery} alterSidebar={alterSidebar} onChange={handleSearch}/>
+            <Searchbar value={searchQuery} alterSidebar={alterSidebar} onChange={handleSearch} filterItem={filter_items} onFilter={handleFilter}/>
             {/* add new button */}
             <div className='add-btn'>
                 <button className='btn' onClick={() =>{setShow(true);clearform()}}><span><AiOutlinePlus /></span>add new</button>
@@ -213,9 +266,9 @@ const Grants = ({alterSidebar}) => {
                 </div>
                 <div className='input-field'>
                     <p className='input-title'>choose a type:</p>
-                    <select onChange={handleChange} name='type1' value={Grant.type} className='select-options'>
-                        <option value="national">grant</option>
-                        <option value="international">research project</option>
+                    <select onChange={handleChange} name='type' value={Grant.type} className='select-options'>
+                        <option value="grant">grant</option>
+                        <option value="research project">research project</option>
                     </select>
                 </div>
                 <div className='input-grid'>

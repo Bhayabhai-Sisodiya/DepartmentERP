@@ -66,7 +66,7 @@ const Expert_talks = ({alterSidebar}) => {
             "faculty_name":Talks.faculty_name, 
             "title_program":Talks.title_program,
             "date":Talks.date,
-            "vanue":Talks.vanue
+            "venue":Talks.vanue
         }
         const result=await axios.post("http://localhost:5000/add_expert_talk", newData
       ,{
@@ -103,9 +103,10 @@ const Expert_talks = ({alterSidebar}) => {
             headers:{"x-auth-token":localStorage.getItem("Token")}
         });
         //const resp=response.json();
-        console.log(response.data);
+        console.log(response);
         setData(response.data);
     } 
+    console.log(Data);
     let filtered=Data;
     if(serchQuery){
         filtered=Data.filter(m=> m.title_talk.toLowerCase().includes(serchQuery.toLowerCase()));

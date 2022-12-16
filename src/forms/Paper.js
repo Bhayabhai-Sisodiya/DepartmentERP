@@ -9,8 +9,9 @@ import { VscFilePdf } from "react-icons/vsc";
 import { SiMicrosoftexcel } from "react-icons/si";
 import axios from 'axios';
 import ReactToPrint from 'react-to-print';
-import Searchbar from '../components/searchbar'
+import Searchbar from '../components/searchbar';
 import { x } from 'joi';
+import {CSVLink} from 'react-csv';
 
 const Papers = ({alterSidebar}) => {
 
@@ -34,12 +35,7 @@ const Papers = ({alterSidebar}) => {
         setPaper({...Paper,[e.target.name]:e.target.value});
     }
 
-    //search handle
-    const [searchQuery,setSearchQuery]=useState("");
-    const handleSearch=(query)=>{
-        setSearchQuery(query);
-        console.log(query);
-    }
+    
 
      //handel delete
      const handleDelete=async (item)=>{
@@ -108,6 +104,7 @@ const Papers = ({alterSidebar}) => {
 
     //fetching data from the database
     const [Data,setData]=useState([]);
+    const [filtered,setFiltered]=useState([]);
     useEffect(()=>{
         // setToken(localStorage.getItem("Token"))
         fetchData()
@@ -120,16 +117,19 @@ const Papers = ({alterSidebar}) => {
             headers:{"x-auth-token":localStorage.getItem("Token")}
         });
         //const resp=response.json();
-        console.log(response.data);
+        //window.alert(response.data);
         setData(response.data);
+        setFiltered(response.data);
     } 
 
-    let filtered=Data;
-    if(searchQuery){
-        filtered=filtered.filter(m=> m.author[0].toLowerCase().includes(searchQuery.toLowerCase()));
-    }
+    //let filtered=Data;
+    console.log(Data);
     
-    const filter_items = [
+    
+    console.log(filtered);
+
+    
+    const [filter_items,set_Filter_item] = useState([
         {
             "id":1,
             "name":"national",
@@ -165,31 +165,104 @@ const Papers = ({alterSidebar}) => {
             "name":"web of science",
             "isChecked":false
         }
-    ];
+    ]);
+
+const [r,setr]=useState("");
+let searchdata=Data;
+
+//search handle
+const [searchQuery,setSearchQuery]=useState("");
+
+const handleSearch=(query)=>{
+    setSearchQuery(query);
+    console.log(query);
+
+    if(query){
+        
+        searchdata=filtered.filter(m=> m.author[0].toLowerCase().includes(query.toLowerCase()));
+        setFiltered(searchdata);
+    }
+    else{
+        setFiltered(Data);
+    }
+}
+    
+    
+    
+   
+    console.log(filtered);
+    //const [filtered_1,setFiltered_1]=useState([]);
+    
 
      const handleFilter = (x) => {
-        
+        //let filtered_f=searchdata;
+         console.log(x);
          filter_items.map(m=>{
         if(m.id===x.id)
             {
             m.isChecked= !(m.isChecked);
             } 
         })
-    }
+        set_Filter_item(filter_items);
+        // setr(1);
+        // setr(0);
         
-    const [filtered_1,setFiltered_1]=useState([]);
-    let ram;
-   
-    
-    if(filter_items[0].id==1 || filter_items[1].id==2){
-        if(filter_items[0].isChecked==true || filter_items[1].isChecked==true){
-            for(let i=0;i<2;i++){
-             filtered=filtered.filter(m=> m.type1==filter_items[i].name);
-             setFiltered_1([...filtered_1,filtered]);
-             console.log(setFiltered_1);
-            }
-        }
+
+        if(filter_items[0].isChecked== true ){
+            searchdata=searchdata.filter(m=> m.type1==filter_items[0].name);
+            setFiltered(searchdata);
+       }
+        if(filter_items[1].isChecked== true){
+        searchdata=searchdata.filter(m=> m.type1==filter_items[1].name);
+        setFiltered(searchdata);
+       }
+       if(filter_items[2].isChecked== true){
+        searchdata=searchdata.filter(m=> m.type==filter_items[2].name);
+        setFiltered(searchdata);
+       }
+       if(filter_items[3].isChecked== true){
+        searchdata=searchdata.filter(m=> m.type==filter_items[3].name);
+        setFiltered(searchdata);
+       }
+       if(filter_items[4].isChecked== true){
+        searchdata=searchdata.filter(m=> m.indexing==filter_items[4].name);
+        setFiltered(searchdata);
+       }
+       if(filter_items[5].isChecked== true){
+        searchdata=searchdata.filter(m=> m.indexing==filter_items[5].name);
+        setFiltered(searchdata);
+       }
+       if(filter_items[6].isChecked== true){
+        searchdata=searchdata.filter(m=> m.indexing==filter_items[6].name);
+        setFiltered(searchdata);
+       }
+       
+       else{
+        setFiltered(searchdata);
+       }
+       
     }
+    
+    
+
+    
+        
+    
+    let ram=filtered;
+
+    console.log(filter_items);
+    console.log(filter_items[0].isChecked);
+
+   
+
+       //console.log(filtered_1);
+   console.log(filter_items[0])
+    console.log(filter_items[0].name);
+    console.log(filtered);
+    //if(filter_items[0].id==1 || filter_items[1].id==2){
+      
+        
+    //}
 
     return ( 
         <>
@@ -218,8 +291,9 @@ const Papers = ({alterSidebar}) => {
                                 pageStyle="print"
                             />
                         </div>
-                        <div className='print-btn-to-excel printBtn'><SiMicrosoftexcel/><span>to excel</span></div>            
-                    </div>  
+                        <div className='print-btn-to-excel printBtn'>
+                        <CSVLink  data={ Data} filename="Paper"><button onClick={() =>{setShowPopup(false)}}><SiMicrosoftexcel/><span>to excel</span></button></CSVLink>
+                        </div>                    </div>  
                 </div>        
             :null}
 

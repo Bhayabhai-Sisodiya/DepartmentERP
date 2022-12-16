@@ -32,12 +32,6 @@ const Phds = ({alterSidebar}) => {
         setShowPopup(!ShowPopup)
     }  
 
-    //handle search
-    const [serchQuery,setSearchQuery]=useState("");
-    const handleSearch=(query)=>{
-        setSearchQuery(query);
-        console.log(query);
-    }
 
     //handel delete
     const handleDelete=async (item)=>{
@@ -91,6 +85,7 @@ const Phds = ({alterSidebar}) => {
 
     //fetching data from the database
     const [Data,setData]=useState([]);
+    const [filtered,setFiltered]=useState([]);
     useEffect(()=>{
         fetchData()
     },[]);
@@ -104,16 +99,81 @@ const Phds = ({alterSidebar}) => {
         //const resp=response.json();
         console.log(response.data);
         setData(response.data);
+        setFiltered(response.data);
     }
 
-    let filtered=Data;
-    if(serchQuery){
-        filtered=Data.filter(m=> m.title.toLowerCase().includes(serchQuery.toLowerCase()));
+    let searchdata=Data;
+
+    //search handle
+    const [searchQuery,setSearchQuery]=useState("");
+    
+    const handleSearch=(query)=>{
+        setSearchQuery(query);
+        console.log(query);
+    
+        if(query){
+            
+            searchdata=filtered.filter(m=> m.institute.toLowerCase().includes(query.toLowerCase()));
+            setFiltered(searchdata);
+        }
+        else{
+            setFiltered(Data);
+        }
     }
+
+     //handle filter
+const [filter_items,set_Filter_item] = useState([
+    {
+        "id":1,
+        "name":"B. Tech",
+        "isChecked":false
+    },
+    {
+        "id":2,
+        "name":"M. Tech",
+        "isChecked":false
+    },
+    {
+        "id":3,
+        "name":"Phd",
+        "isChecked":false
+    }
+]);
+
+//handle filter function
+const handleFilter = (x) => {
+    //let filtered_f=searchdata;
+     console.log(x);
+     filter_items.map(m=>{
+    if(m.id===x.id)
+        {
+        m.isChecked= !(m.isChecked);
+        } 
+    })
+    set_Filter_item(filter_items);
+    if(filter_items[0].isChecked== true ){
+        searchdata=searchdata.filter(m=> m.title==filter_items[0].name);
+        setFiltered(searchdata);
+   }
+    if(filter_items[1].isChecked== true){
+    searchdata=searchdata.filter(m=> m.title==filter_items[1].name);
+    setFiltered(searchdata);
+   }
+   if(filter_items[2].isChecked== true){
+    searchdata=searchdata.filter(m=> m.title==filter_items[2].name);
+    setFiltered(searchdata);
+   }
+   
+   else{
+    setFiltered(searchdata);
+   }
+   
+}
+
 
     return ( 
         <>
-            <Searchbar value={serchQuery} alterSidebar={alterSidebar} onChange={handleSearch}/>
+            <Searchbar value={searchQuery} alterSidebar={alterSidebar} onChange={handleSearch} filterItem={filter_items} onFilter={handleFilter}/>
             {/* add new button */}
             <div className='add-btn'>
                 <button className='btn' onClick={() =>{setShow(true);clearform()}}><span><AiOutlinePlus /></span>add new</button>
@@ -186,10 +246,10 @@ const Phds = ({alterSidebar}) => {
                 </div>
                 <div className='input-field'>
                     <p className='input-title'>choose a type:</p>
-                    <select name='type' onChange={handleChange} value={Phd.type} className='select-options'>
-                        <option value="Seminar">B. Tech</option>
-                        <option value="Workshop">M. Tech</option>
-                        <option value="Conference">Phd</option>
+                    <select name='type' onChange={handleChange} value={Phd.title} className='select-options'>
+                        <option value="B. Tech">B. Tech</option>
+                        <option value="M. Tech">M. Tech</option>
+                        <option value="Phd">Phd</option>
                     </select>
                 </div>
                 <div className='input-field'>

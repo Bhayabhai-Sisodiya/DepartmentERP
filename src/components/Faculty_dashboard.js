@@ -42,7 +42,7 @@ const  Faculty_dashboard = ({Token}) => {
     <>
                 <Header/>
                 <div className='dashboard'>
-                    {/* <Sidebar isMobile={isMobile} onChangeCategory={onChangeCategory} alterSidebar = {alterSidebar} showSidebar={showSidebar} /> */}
+                    <Sidebar isMobile={isMobile} onChangeCategory={onChangeCategory} alterSidebar = {alterSidebar} showSidebar={showSidebar} />
                     <Content category={category} alterSidebar = {alterSidebar} token = {Token}/>
                 </div>
             </>
